@@ -1,0 +1,43 @@
+<view class="page">
+  <!-- 导航栏 -->
+  <view class="nav">
+    <view class="nav-left" bindtap="onBack">←</view>
+    <view class="nav-title">隐私设置</view>
+    <view class="nav-right"></view>
+  </view>
+
+  <!-- 设置列表 -->
+  <view class="settings-list">
+    <view class="settings-item">
+      <view class="settings-label">
+        <text class="settings-name">数据加密</text>
+        <text class="settings-desc">本地数据库使用加密存储</text>
+      </view>
+      <view class="toggle {{dataEncryption ? 'on' : 'off'}}" bindtap="onToggleEncryption"></view>
+    </view>
+
+    <view class="settings-item">
+      <view class="settings-label">
+        <text class="settings-name">匿名分析</text>
+        <text class="settings-desc">允许系统收集匿名使用数据</text>
+      </view>
+      <view class="toggle {{anonymousAnalytics ? 'on' : 'off'}}" bindtap="onToggleAnalytics"></view>
+    </view>
+
+    <view class="settings-item">
+      <view class="settings-label">
+        <text class="settings-name">云端同步</text>
+        <text class="settings-desc">启用云端备份与跨设备同步</text>
+      </view>
+      <view class="toggle {{cloudSync ? 'on' : 'off'}}" bindtap="onToggleSync"></view>
+    </view>
+  </view>
+
+  <!-- 隐私政策 -->
+  <view class="policy-section">
+    <view class="policy-title">隐私政策</view>
+    <view class="policy-text">
+      我们严格保护您的个人信息，不会在未经同意的情况下与第三方共享您的数据。所有个人数据均存储在本地或加密云端。
+    </view>
+  </view>
+</view>

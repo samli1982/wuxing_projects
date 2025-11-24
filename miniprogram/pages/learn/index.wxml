@@ -1,5 +1,145 @@
 <view class="page">
-  <view class="content">
-    <text>五运六气详解（占位跳转目标）。</text>
+  <!-- 导航栏 -->
+  <view class="nav">
+    <view class="nav-left" bindtap="onBack">←</view>
+    <view class="nav-title">国医学堂</view>
+    <view class="nav-right" bindtap="onSearch">🔍</view>
+  </view>
+
+  <!-- 主视觉横幅：今日推荐课 -->
+  <swiper class="hero-banner" autoplay="{{true}}" interval="{{5000}}" circular="{{true}}">
+    <block wx:for="{{recommendedCourses}}" wx:key="course_id">
+      <swiper-item>
+        <view class="hero-item" bindtap="onCourseDetail" data-id="{{item.course_id}}">
+          <view class="hero-icon">📖</view>
+          <view class="hero-content">
+            <view class="hero-label">今日推荐</view>
+            <view class="hero-title">{{item.title}}</view>
+            <view class="hero-desc">{{item.description}}</view>
+            <view class="hero-progress">
+              <view class="progress-bar">
+                <view class="progress-fill" style="width: {{item.progress}}%;"></view>
+              </view>
+              <text class="progress-text">已读 {{item.progress}}%</text>
+            </view>
+          </view>
+          <view class="hero-play">▶️</view>
+        </view>
+      </swiper-item>
+    </block>
+  </swiper>
+
+  <!-- 内容分类标签栏 -->
+  <scroll-view class="category-tabs" scroll-x="true" show-scrollbar="false">
+    <block wx:for="{{categories}}" wx:key="*this">
+      <view class="category-tab {{activeCategory===item?'active':''}}" bindtap="switchCategory" data-category="{{item}}">
+        {{item}}
+      </view>
+    </block>
+  </scroll-view>
+
+  <!-- 精选课程卡片列表 -->
+  <view class="courses-section">
+    <block wx:for="{{coursesList}}" wx:key="course_id">
+      <view class="course-card" bindtap="onCourseDetail" data-id="{{item.course_id}}">
+        <view class="course-header">
+          <view class="course-icon">{{item.course_icon}}</view>
+          <view class="course-meta">
+            <view class="course-category">{{item.category}}</view>
+            <view class="course-collect {{item.is_collected?'active':''}}" bindtap="toggleCollect" data-id="{{item.course_id}}" catchTap>❤️</view>
+          </view>
+        </view>
+        <view class="course-title">{{item.title}}</view>
+        <view class="course-info">
+          <text>🕒 {{item.duration}}</text>
+          <text>　｜　</text>
+          <text>📖 {{item.type}}</text>
+        </view>
+        <view class="course-progress">
+          <view class="progress-bar">
+            <view class="progress-fill" style="width: {{item.progress}}%;"></view>
+          </view>
+          <text class="progress-text">继续学习（已读 {{item.progress}}%）</text>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <!-- 经典文献阅读区 -->
+  <view class="classics-section">
+    <view class="section-title">📘 古籍原文精选</view>
+    <block wx:for="{{classicsList}}" wx:key="classic_id">
+      <view class="classic-card" bindtap="onClassicDetail" data-id="{{item.classic_id}}">
+        <view class="classic-name">《{{item.name}}》节选</view>
+        <view class="classic-excerpt">
+          "{{item.excerpt}}"
+        </view>
+        <view class="classic-footer">
+          <view class="classic-annotation" bindtap="onAnnotation" data-id="{{item.classic_id}}" catchTap>
+            <text>📌</text>
+            <text>注解</text>
+          </view>
+          <view class="classic-link" bindtap="onRelatedCourse" data-course-id="{{item.related_course}}" catchTap>
+            <text>🔗</text>
+            <text>关联课程</text>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <!-- 视频讲堂入口 -->
+  <view class="video-section">
+    <view class="section-title">🎥 名师讲堂</view>
+    <block wx:for="{{videosList}}" wx:key="video_id">
+      <view class="video-card" bindtap="onVideoPlay" data-id="{{item.video_id}}">
+        <view class="video-thumbnail">
+          <image src="{{item.thumbnail_url}}" mode="aspectFill"></image>
+          <view class="video-play-icon">▶️</view>
+        </view>
+        <view class="video-info">
+          <view class="video-speaker">{{item.speaker}}主讲</view>
+          <view class="video-title">{{item.title}}</view>
+          <view class="video-meta">
+            <text>▶️ {{item.duration}}</text>
+            <text>　｜　</text>
+            <text>👁️ {{item.views_text}}</text>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <!-- 社区问答 & 笔记区 -->
+  <view class="community-section">
+    <view class="community-tabs">
+      <view class="community-tab {{activeTab==='qa'?'active':''}}" bindtap="switchCommunityTab" data-tab="qa">问答</view>
+      <view class="community-tab {{activeTab==='notes'?'active':''}}" bindtap="switchCommunityTab" data-tab="notes">我的笔记</view>
+    </view>
+
+    <!-- 问答内容 -->
+    <view class="community-content" wx:if="{{activeTab==='qa'}}">
+      <block wx:for="{{qaList}}" wx:key="qa_id">
+        <view class="qa-item">
+          <view class="qa-question">Q: {{item.question}}</view>
+          <view class="qa-answer">A: {{item.answer}}</view>
+          <view class="qa-actions">
+            <view class="qa-action" bindtap="toggleQaLike" data-id="{{item.qa_id}}">👍 {{item.likes}}</view>
+            <view class="qa-action" bindtap="toggleQaCollect" data-id="{{item.qa_id}}">❤️ 收藏</view>
+          </view>
+        </view>
+      </block>
+    </view>
+
+    <!-- 笔记内容 -->
+    <view class="community-content" wx:if="{{activeTab==='notes'}}">
+      <block wx:for="{{notesList}}" wx:key="note_id">
+        <view class="note-item" bindtap="onNoteDetail" data-id="{{item.note_id}}">
+          <view class="note-title">📝 {{item.title}}</view>
+          <view class="note-preview">{{item.preview}}</view>
+          <view class="note-meta">{{item.created_at}}</view>
+        </view>
+      </block>
+    </view>
   </view>
 </view>

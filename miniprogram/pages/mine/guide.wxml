@@ -1,0 +1,50 @@
+<view class="page">
+  <!-- 导航栏 -->
+  <view class="nav">
+    <view class="nav-left" bindtap="onBack">←</view>
+    <view class="nav-title">使用指南</view>
+    <view class="nav-right"></view>
+  </view>
+
+  <!-- 指南内容 -->
+  <scroll-view scroll-y="true" class="content">
+    <view class="guide-section">
+      <view class="guide-title">📖 快速开始</view>
+      <view class="guide-item">
+        <view class="item-title">1. 创建你的命盘</view>
+        <view class="item-desc">点击「命盘」页的【+】按钮，填写基本信息（姓名、性别、出生时间、地点），系统会自动生成你的四柱八字、五行、体质分析。</view>
+      </view>
+      <view class="guide-item">
+        <view class="item-title">2. 探索学堂</view>
+        <view class="item-desc">在「学堂」页学习中医理论、天文历法、五运六气等知识。系统会根据你的命盘自动推荐相关课程。</view>
+      </view>
+      <view class="guide-item">
+        <view class="item-title">3. 查看调理建议</view>
+        <view class="item-desc">在命盘详情页查看个性化的调理建议（饮食、运动、情志、起居、经络），根据你的体质制定调养计划。</view>
+      </view>
+    </view>
+
+    <view class="guide-section">
+      <view class="guide-title">🌿 关于我们</view>
+      <view class="guide-desc">
+        时空本草学派·天人合一助手 融合了中医经典理论、天文历法与五运六气的智能养生助手。通过科学的四柱八字分析和五行五运理论，为您提供个性化的健康建议。
+      </view>
+    </view>
+
+    <view class="guide-section">
+      <view class="guide-title">❓ 常见问题</view>
+      <view class="guide-item">
+        <view class="item-title">Q: 如何更新我的命盘信息？</view>
+        <view class="item-desc">点击命盘页的编辑图标，修改基本信息后保存即可。</view>
+      </view>
+      <view class="guide-item">
+        <view class="item-title">Q: 如何导出我的数据？</view>
+        <view class="item-desc">在「我的」页点击「数据备份」，选择导出格式（JSON 或 CSV）。</view>
+      </view>
+      <view class="guide-item">
+        <view class="item-title">Q: 我的数据会被保存吗？</view>
+        <view class="item-desc">是的，所有数据都保存在你的设备本地，不会被上传至服务器。你也可以启用云端备份进行跨设备同步。</view>
+      </view>
+    </view>
+  </scroll-view>
+</view>

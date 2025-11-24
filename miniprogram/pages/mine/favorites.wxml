@@ -1,0 +1,43 @@
+<view class="page">
+  <!-- 导航栏 -->
+  <view class="nav">
+    <view class="nav-left" bindtap="onBack">←</view>
+    <view class="nav-title">收藏夹</view>
+    <view class="nav-right"></view>
+  </view>
+
+  <!-- Tab 切换 -->
+  <view class="tab-bar">
+    <view class="tab {{activeTab === 'courses' ? 'active' : ''}}" bindtap="onTabChange" data-tab="courses">课程</view>
+    <view class="tab {{activeTab === 'herbs' ? 'active' : ''}}" bindtap="onTabChange" data-tab="herbs">药精</view>
+    <view class="tab {{activeTab === 'palmtrees' ? 'active' : ''}}" bindtap="onTabChange" data-tab="palmtrees">命盘</view>
+  </view>
+
+  <!-- 内容区 -->
+  <view class="content">
+    <block wx:if="{{activeTab === 'courses'}}">
+      <view class="favorite-item" wx:for="{{favoritesCourses}}" wx:key="id">
+        <view class="item-title">{{item.title}}</view>
+        <view class="item-meta">{{item.category}}</view>
+      </view>
+    </block>
+
+    <block wx:if="{{activeTab === 'herbs'}}">
+      <view class="favorite-item" wx:for="{{favoritesHerbs}}" wx:key="id">
+        <view class="item-title">{{item.name}}</view>
+        <view class="item-meta">{{item.property}}</view>
+      </view>
+    </block>
+
+    <block wx:if="{{activeTab === 'palmtrees'}}">
+      <view class="favorite-item" wx:for="{{favoritePalmtrees}}" wx:key="id">
+        <view class="item-title">{{item.nickname}}</view>
+        <view class="item-meta">{{item.year}}年 · {{item.constitution}}</view>
+      </view>
+    </block>
+
+    <view class="empty" wx:if="{{(activeTab === 'courses' && favoritesCourses.length === 0) || (activeTab === 'herbs' && favoritesHerbs.length === 0) || (activeTab === 'palmtrees' && favoritePalmtrees.length === 0)}}">
+      <text class="empty-text">暂无收藏内容</text>
+    </view>
+  </view>
+</view>

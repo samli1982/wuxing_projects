@@ -102,11 +102,11 @@ aliyun:
   oss:
     access-key-id: ${ALIYUN_OSS_ACCESS_KEY_ID:}
     access-key-secret: ${ALIYUN_OSS_ACCESS_KEY_SECRET:}
-    bucket-name: wuxing-files
+    bucket-name: ${ALIYUN_OSS_BUCKET_NAME:wuxing-files}
     # 使用标准Bucket Endpoint（不使用接入点）
-    endpoint: oss-cn-shenzhen.aliyuncs.com
-    domain: 
-    prefix: wuxing/
+    endpoint: ${ALIYUN_OSS_ENDPOINT:oss-cn-shenzhen.aliyuncs.com}
+    domain: ${ALIYUN_OSS_DOMAIN:}
+    prefix: ${ALIYUN_OSS_PREFIX:wuxing/}
 
 
 #acs:oss:cn-shenzhen:1888147729201829:accesspoint/wuxing/object/*

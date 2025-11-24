@@ -1,0 +1,43 @@
+<view class="page">
+  <!-- 导航栏 -->
+  <view class="nav">
+    <view class="nav-left" bindtap="onBack">←</view>
+    <view class="nav-title">通知中心</view>
+    <view class="nav-right"></view>
+  </view>
+
+  <!-- 通知设置 -->
+  <view class="settings-list">
+    <view class="settings-item">
+      <view class="settings-label">
+        <text class="settings-name">节气提醒</text>
+        <text class="settings-desc">在每个节气到来时发送提醒</text>
+      </view>
+      <view class="toggle {{solarTermNotification ? 'on' : 'off'}}" bindtap="onToggleSolarTerm"></view>
+    </view>
+
+    <view class="settings-item">
+      <view class="settings-label">
+        <text class="settings-name">流年预警</text>
+        <text class="settings-desc">提醒重要流年转变</text>
+      </view>
+      <view class="toggle {{yearlyWarning ? 'on' : 'off'}}" bindtap="onToggleYearlyWarning"></view>
+    </view>
+
+    <view class="settings-item">
+      <view class="settings-label">
+        <text class="settings-name">学习提醒</text>
+        <text class="settings-desc">定时提醒继续学习</text>
+      </view>
+      <view class="toggle {{learningReminder ? 'on' : 'off'}}" bindtap="onToggleLearningReminder"></view>
+    </view>
+
+    <view class="settings-item">
+      <view class="settings-label">
+        <text class="settings-name">调理建议</text>
+        <text class="settings-desc">推送个性化养生建议</text>
+      </view>
+      <view class="toggle {{therapyTips ? 'on' : 'off'}}" bindtap="onToggleTherapyTips"></view>
+    </view>
+  </view>
+</view>

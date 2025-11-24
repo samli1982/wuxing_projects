@@ -7,7 +7,15 @@
     "pages/palmtree/result",
     "pages/palmtree/list",
     "pages/herb/index",
-    "pages/learn/index"
+    "pages/learn/index",
+    "pages/mine/index",
+    "pages/mine/profile",
+    "pages/mine/favorites",
+    "pages/mine/privacy",
+    "pages/mine/notifications",
+    "pages/mine/backup",
+    "pages/mine/feedback",
+    "pages/mine/guide"
   ],
   "window": {
     "navigationStyle": "custom",
@@ -24,7 +32,8 @@
       {"pagePath": "pages/home/index", "text": "首页"},
       {"pagePath": "pages/palmtree/index", "text": "命盘"},
       {"pagePath": "pages/herb/index", "text": "药精"},
-      {"pagePath": "pages/learn/index", "text": "学堂"}
+      {"pagePath": "pages/learn/index", "text": "学堂"},
+      {"pagePath": "pages/mine/index", "text": "我的"}
     ]
   }
 }

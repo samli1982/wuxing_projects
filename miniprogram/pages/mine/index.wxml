@@ -1,0 +1,230 @@
+<view class="page">
+  <!-- 导航栏 -->
+  <view class="nav">
+    <view class="nav-left"></view>
+    <view class="nav-title">我的</view>
+    <view class="nav-right"></view>
+  </view>
+
+  <!-- 顶部用户信息区 -->
+  <view class="user-info-card" bindtap="onProfileEdit">
+    <view class="user-header">
+      <view class="avatar" style="background-color: {{userInfo.avatar_color}};">
+        <text>{{userInfo.nickname.charAt(0)}}</text>
+      </view>
+      <view class="user-content">
+        <view class="user-greeting">
+          <text class="greeting-text">欢迎回来，{{userInfo.nickname}}</text>
+          <text class="greeting-emoji">🌿</text>
+        </view>
+        <view class="user-stats">
+          <text>已连续学习 {{userInfo.consecutive_days}} 天</text>
+        </view>
+        <view class="user-stats">
+          <text>累计创建 {{userInfo.total_palmtrees}} 个命盘</text>
+        </view>
+      </view>
+      <view class="edit-icon" bindtap="onProfileEdit" catchTap>✏️</view>
+    </view>
+  </view>
+
+  <!-- 快捷入口图标组 -->
+  <view class="quick-access">
+    <view class="quick-grid">
+      <view class="quick-item" bindtap="onQuickAction" data-action="palmtrees">
+        <view class="quick-icon">📜</view>
+        <view class="quick-text">我的命盘</view>
+      </view>
+      <view class="quick-item" bindtap="onQuickAction" data-action="favorites">
+        <view class="quick-icon">❤️</view>
+        <view class="quick-text">收藏夹</view>
+      </view>
+      <view class="quick-item" bindtap="onQuickAction" data-action="notes">
+        <view class="quick-icon">📝</view>
+        <view class="quick-text">我的笔记</view>
+      </view>
+      <view class="quick-item" bindtap="onQuickAction" data-action="history">
+        <view class="quick-icon">🎓</view>
+        <view class="quick-text">学习记录</view>
+      </view>
+      <view class="quick-item" bindtap="onQuickAction" data-action="backup">
+        <view class="quick-icon">📁</view>
+        <view class="quick-text">数据备份</view>
+      </view>
+      <view class="quick-item" bindtap="onQuickAction" data-action="theme">
+        <view class="quick-icon">🌙</view>
+        <view class="quick-text">主题设置</view>
+      </view>
+      <view class="quick-item" bindtap="onQuickAction" data-action="service">
+        <view class="quick-icon">📞</view>
+        <view class="quick-text">联系客服</view>
+      </view>
+      <view class="quick-item" bindtap="onQuickAction" data-action="guide">
+        <view class="quick-icon">❓</view>
+        <view class="quick-text">使用指南</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 我的内容管理区 -->
+  <view class="content-section">
+    <!-- 我的命盘 -->
+    <view class="content-card">
+      <view class="card-header">
+        <text class="card-icon">📜</text>
+        <text class="card-title">我的命盘</text>
+      </view>
+      <view class="card-content">
+        <view class="palmtree-item">
+          <view class="item-title">最近命盘：{{userStats.last_palmtree.name}}</view>
+          <view class="item-meta">
+            <text>📅 创建于：{{userStats.last_palmtree.created_at}}</text>
+          </view>
+          <view class="item-meta">
+            <text>🎯 体质类型：{{userStats.last_palmtree.constitution}}</text>
+          </view>
+        </view>
+        <view class="card-action" bindtap="onViewAllPalmtrees">
+          <text>👉 查看全部 {{userStats.total_palmtrees}} 个命盘</text>
+          <text class="arrow">></text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 我的笔记 & 收藏 -->
+    <view class="content-card">
+      <view class="card-header">
+        <text class="card-icon">📝</text>
+        <text class="card-title">我的笔记 & 收藏</text>
+      </view>
+      <view class="card-content">
+        <view class="stats-grid">
+          <view class="stat-item">
+            <view class="stat-number">{{userStats.notes_count}}</view>
+            <view class="stat-label">笔记</view>
+          </view>
+          <view class="stat-item">
+            <view class="stat-number">{{userStats.favorites.courses}}</view>
+            <view class="stat-label">课程</view>
+          </view>
+          <view class="stat-item">
+            <view class="stat-number">{{userStats.favorites.herbs}}</view>
+            <view class="stat-label">药精</view>
+          </view>
+          <view class="stat-item">
+            <view class="stat-number">{{userStats.favorites.palmtrees}}</view>
+            <view class="stat-label">命盘</view>
+          </view>
+        </view>
+        <view class="card-action" bindtap="onViewNotes">
+          <text>👉 前往笔记中心</text>
+          <text class="arrow">></text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 学习进度 -->
+    <view class="content-card">
+      <view class="card-header">
+        <text class="card-icon">📊</text>
+        <text class="card-title">学习进度</text>
+      </view>
+      <view class="card-content">
+        <view class="learning-item" wx:for="{{userStats.learning_progress}}" wx:key="index" bindtap="onContinueLearn" data-course-id="{{item.course_id}}">
+          <view class="learning-title">{{item.title}}</view>
+          <view class="progress-bar">
+            <view class="progress-fill" style="width: {{item.progress}}%;"></view>
+          </view>
+          <view class="progress-text">已完成 {{item.progress}}%</view>
+        </view>
+        <view class="learning-stats">
+          <text>📈 总计学习时长：{{userStats.learning_duration}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 系统设置与帮助 -->
+  <view class="settings-section">
+    <view class="settings-title">系统设置</view>
+    
+    <view class="settings-list">
+      <view class="settings-item" bindtap="onToggleTheme">
+        <view class="settings-label">
+          <text class="settings-icon">🌙</text>
+          <text class="settings-name">主题模式</text>
+        </view>
+        <view class="settings-value">
+          <text>{{themeMode === 'dark' ? '暗黑模式' : '亮色模式'}}</text>
+          <text class="arrow">></text>
+        </view>
+      </view>
+
+      <view class="settings-item" bindtap="onOpenSettings" data-type="privacy">
+        <view class="settings-label">
+          <text class="settings-icon">🔐</text>
+          <text class="settings-name">隐私设置</text>
+        </view>
+        <view class="settings-value">
+          <text class="arrow">></text>
+        </view>
+      </view>
+
+      <view class="settings-item" bindtap="onOpenSettings" data-type="notifications">
+        <view class="settings-label">
+          <text class="settings-icon">🔔</text>
+          <text class="settings-name">通知中心</text>
+        </view>
+        <view class="settings-value">
+          <text class="arrow">></text>
+        </view>
+      </view>
+
+      <view class="settings-item" bindtap="onOpenSettings" data-type="backup">
+        <view class="settings-label">
+          <text class="settings-icon">💾</text>
+          <text class="settings-name">数据备份</text>
+        </view>
+        <view class="settings-value">
+          <text class="arrow">></text>
+        </view>
+      </view>
+
+      <view class="settings-item" bindtap="onOpenSettings" data-type="about">
+        <view class="settings-label">
+          <text class="settings-icon">ℹ️</text>
+          <text class="settings-name">关于我们</text>
+        </view>
+        <view class="settings-value">
+          <text>v1.0.0</text>
+          <text class="arrow">></text>
+        </view>
+      </view>
+
+      <view class="settings-item" bindtap="onOpenSettings" data-type="feedback">
+        <view class="settings-label">
+          <text class="settings-icon">✉️</text>
+          <text class="settings-name">意见反馈</text>
+        </view>
+        <view class="settings-value">
+          <text class="arrow">></text>
+        </view>
+      </view>
+
+      <view class="settings-item" bindtap="onOpenSettings" data-type="guide">
+        <view class="settings-label">
+          <text class="settings-icon">📘</text>
+          <text class="settings-name">使用指南</text>
+        </view>
+        <view class="settings-value">
+          <text class="arrow">></text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 退出登录按钮 -->
+  <view class="logout-section">
+    <view class="button logout" bindtap="onLogout">🚪 退出登录</view>
+  </view>
+</view>

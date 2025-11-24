@@ -1,0 +1,45 @@
+<view class="page">
+  <!-- 导航栏 -->
+  <view class="nav">
+    <view class="nav-left" bindtap="onBack">←</view>
+    <view class="nav-title">意见反馈</view>
+    <view class="nav-right"></view>
+  </view>
+
+  <!-- 反馈表单 -->
+  <view class="form-section">
+    <view class="form-item">
+      <view class="label">反馈类型</view>
+      <picker bindchange="onTypeChange" value="{{selectedTypeIndex}}" range="{{feedbackTypes}}">
+        <view class="picker">{{feedbackTypes[selectedTypeIndex]}}</view>
+      </picker>
+    </view>
+
+    <view class="form-item">
+      <view class="label">详细描述</view>
+      <textarea 
+        class="textarea" 
+        placeholder="请详细描述你的建议或问题（至少 10 个字符）"
+        value="{{feedbackContent}}"
+        bindchange="onContentChange"
+        maxlength="500"
+      />
+      <view class="char-count">{{feedbackContent.length}}/500</view>
+    </view>
+
+    <view class="form-item">
+      <view class="label">联系方式（可选）</view>
+      <input 
+        class="input" 
+        placeholder="邮箱或手机号" 
+        value="{{contactInfo}}"
+        bindchange="onContactChange"
+      />
+    </view>
+  </view>
+
+  <!-- 提交按钮 -->
+  <view class="action-area">
+    <view class="button primary" bindtap="onSubmit" disabled="{{feedbackContent.length < 10}}">提交反馈</view>
+  </view>
+</view>

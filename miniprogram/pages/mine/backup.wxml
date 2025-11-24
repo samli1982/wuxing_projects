@@ -1,0 +1,39 @@
+<view class="page">
+  <!-- 导航栏 -->
+  <view class="nav">
+    <view class="nav-left" bindtap="onBack">←</view>
+    <view class="nav-title">数据备份</view>
+    <view class="nav-right"></view>
+  </view>
+
+  <!-- 备份说明 -->
+  <view class="section">
+    <view class="section-title">本地备份</view>
+    <view class="backup-item">
+      <view class="backup-info">
+        <view class="backup-name">导出为 JSON</view>
+        <view class="backup-desc">便于导入其他设备</view>
+      </view>
+      <view class="button" bindtap="onExportJSON">导出</view>
+    </view>
+    <view class="backup-item">
+      <view class="backup-info">
+        <view class="backup-name">导出为 CSV</view>
+        <view class="backup-desc">可在 Excel 中打开</view>
+      </view>
+      <view class="button" bindtap="onExportCSV">导出</view>
+    </view>
+  </view>
+
+  <!-- 云端备份 -->
+  <view class="section">
+    <view class="section-title">云端备份</view>
+    <view class="backup-item">
+      <view class="backup-info">
+        <view class="backup-name">云端备份</view>
+        <view class="backup-desc">安全保存，跨设备同步</view>
+      </view>
+      <view class="button" bindtap="onCloudBackup">{{cloudBackupEnabled ? '已启用' : '启用'}}</view>
+    </view>
+  </view>
+</view>
