@@ -45,7 +45,7 @@
         :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
       >
         <el-table-column prop="id" label="ID" width="80" />
-        <el-table-column prop="permissionName" label="权限名称" width="180" />
+        <el-table-column prop="permissionName" label="权限名称" width="120" />
         <el-table-column prop="permissionCode" label="权限编码" width="180" />
         <el-table-column label="权限类型" width="120">
           <template #default="{ row }">

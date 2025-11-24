@@ -64,6 +64,7 @@ CREATE TABLE IF NOT EXISTS sys_permission (
     permission_type TINYINT DEFAULT 1 COMMENT '权限类型 1菜单 2按钮',
     parent_id BIGINT DEFAULT 0 COMMENT '父权限ID',
     path VARCHAR(255) COMMENT '路由地址',
+    component VARCHAR(255) COMMENT '组件路径',
     icon VARCHAR(100) COMMENT '图标',
     sort INT DEFAULT 0 COMMENT '排序',
     status TINYINT DEFAULT 1 COMMENT '状态 0禁用 1正常',
@@ -88,3 +89,76 @@ CREATE TABLE IF NOT EXISTS sys_role_permission (
     INDEX idx_permission_id (permission_id),
     UNIQUE KEY uk_role_permission (role_id, permission_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='角色权限关联表';
+
+-- 字典表
+CREATE TABLE IF NOT EXISTS sys_dictionary (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT COMMENT '主键ID',
+    dict_type VARCHAR(50) NOT NULL COMMENT '字典类型',
+    dict_type_name VARCHAR(100) NOT NULL COMMENT '字典类型名称',
+    dict_key VARCHAR(50) NOT NULL COMMENT '字典键',
+    dict_value VARCHAR(200) NOT NULL COMMENT '字典值',
+    sort INT DEFAULT 0 COMMENT '排序',
+    status TINYINT DEFAULT 1 COMMENT '状态 0禁用 1启用',
+    remark VARCHAR(500) COMMENT '备注',
+    create_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    create_by BIGINT COMMENT '创建人',
+    update_by BIGINT COMMENT '更新人',
+    deleted TINYINT DEFAULT 0 COMMENT '逻辑删除 0未删除 1已删除',
+    INDEX idx_dict_type (dict_type),
+    INDEX idx_dict_key (dict_key),
+    INDEX idx_status (status),
+    INDEX idx_deleted (deleted)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='系统字典表';
+
+-- 操作日志表
+CREATE TABLE IF NOT EXISTS sys_operation_log (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT COMMENT '主键ID',
+    module VARCHAR(100) COMMENT '操作模块',
+    operation_type VARCHAR(50) COMMENT '操作类型',
+    description VARCHAR(255) COMMENT '操作描述',
+    method VARCHAR(255) COMMENT '请求方法',
+    params TEXT COMMENT '请求参数',
+    result TEXT COMMENT '返回结果',
+    ip VARCHAR(50) COMMENT '操作IP',
+    location VARCHAR(100) COMMENT '操作地址',
+    operator VARCHAR(50) COMMENT '操作人',
+    operator_id BIGINT COMMENT '操作人ID',
+    duration BIGINT COMMENT '执行时长(毫秒)',
+    status TINYINT DEFAULT 1 COMMENT '状态 0失败 1成功',
+    error_msg TEXT COMMENT '错误信息',
+    create_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    create_by BIGINT COMMENT '创建人',
+    update_by BIGINT COMMENT '更新人',
+    deleted TINYINT DEFAULT 0 COMMENT '逻辑删除 0未删除 1已删除',
+    INDEX idx_module (module),
+    INDEX idx_operator (operator),
+    INDEX idx_create_time (create_time),
+    INDEX idx_deleted (deleted)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='操作日志表';
+
+-- 文件信息表
+CREATE TABLE IF NOT EXISTS sys_file (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT COMMENT '主键ID',
+    file_name VARCHAR(255) NOT NULL COMMENT '文件原始名称',
+    file_key VARCHAR(500) NOT NULL COMMENT '文件存储名称',
+    file_url VARCHAR(500) NOT NULL COMMENT '文件URL',
+    file_size BIGINT COMMENT '文件大小(字节)',
+    file_type VARCHAR(100) COMMENT '文件类型',
+    storage_type TINYINT DEFAULT 2 COMMENT '存储类型 1-本地 2-OSS',
+    uploader VARCHAR(50) COMMENT '上传人',
+    uploader_id BIGINT COMMENT '上传人ID',
+    category VARCHAR(50) COMMENT '文件分类',
+    remark VARCHAR(500) COMMENT '备注',
+    create_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    create_by BIGINT COMMENT '创建人',
+    update_by BIGINT COMMENT '更新人',
+    deleted TINYINT DEFAULT 0 COMMENT '逻辑删除 0未删除 1已删除',
+    INDEX idx_file_name (file_name),
+    INDEX idx_category (category),
+    INDEX idx_uploader (uploader),
+    INDEX idx_create_time (create_time),
+    INDEX idx_deleted (deleted)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='文件信息表';

@@ -2,82 +2,101 @@
   <div class="dashboard">
     <el-row :gutter="20">
       <el-col :span="6">
-        <el-card class="stat-card">
-          <div class="stat-content">
-            <div class="stat-icon user">
-              <el-icon><User /></el-icon>
+        <el-card>
+          <div class="stat-card">
+            <div class="stat-icon" style="background: #409eff;">
+              <el-icon :size="32"><User /></el-icon>
             </div>
             <div class="stat-info">
-              <div class="stat-value">{{ stats.totalUsers }}</div>
-              <div class="stat-label">总用户数</div>
+              <div class="stat-title">用户总数</div>
+              <div class="stat-value">{{ stats.userCount }}</div>
             </div>
           </div>
         </el-card>
       </el-col>
-      
       <el-col :span="6">
-        <el-card class="stat-card">
-          <div class="stat-content">
-            <div class="stat-icon role">
-              <el-icon><Avatar /></el-icon>
+        <el-card>
+          <div class="stat-card">
+            <div class="stat-icon" style="background: #67c23a;">
+              <el-icon :size="32"><Stamp /></el-icon>
             </div>
             <div class="stat-info">
-              <div class="stat-value">{{ stats.totalRoles }}</div>
-              <div class="stat-label">角色数量</div>
+              <div class="stat-title">角色总数</div>
+              <div class="stat-value">{{ stats.roleCount }}</div>
             </div>
           </div>
         </el-card>
       </el-col>
-      
       <el-col :span="6">
-        <el-card class="stat-card">
-          <div class="stat-content">
-            <div class="stat-icon active">
-              <el-icon><CircleCheck /></el-icon>
+        <el-card>
+          <div class="stat-card">
+            <div class="stat-icon" style="background: #e6a23c;">
+              <el-icon :size="32"><Document /></el-icon>
             </div>
             <div class="stat-info">
-              <div class="stat-value">{{ stats.activeUsers }}</div>
-              <div class="stat-label">活跃用户</div>
+              <div class="stat-title">操作日志</div>
+              <div class="stat-value">{{ stats.logCount }}</div>
             </div>
           </div>
         </el-card>
       </el-col>
-      
       <el-col :span="6">
-        <el-card class="stat-card">
-          <div class="stat-content">
-            <div class="stat-icon system">
-              <el-icon><Monitor /></el-icon>
+        <el-card>
+          <div class="stat-card">
+            <div class="stat-icon" style="background: #f56c6c;">
+              <el-icon :size="32"><Files /></el-icon>
             </div>
             <div class="stat-info">
-              <div class="stat-value">运行中</div>
-              <div class="stat-label">系统状态</div>
+              <div class="stat-title">文件总数</div>
+              <div class="stat-value">{{ stats.fileCount }}</div>
             </div>
           </div>
         </el-card>
       </el-col>
     </el-row>
-    
-    <el-row :gutter="20" style="margin-top: 20px">
+
+    <el-row :gutter="20" style="margin-top: 20px;">
       <el-col :span="24">
         <el-card>
           <template #header>
-            <span>快捷功能</span>
+            <span>快捷操作</span>
           </template>
           <div class="quick-actions">
-            <el-button type="primary" @click="goToUserManagement">
+            <el-button type="primary" @click="$router.push('/user')" v-permission="'system:user'">
               <el-icon><User /></el-icon>
               用户管理
             </el-button>
-            <el-button type="success" @click="goToRoleManagement">
-              <el-icon><Avatar /></el-icon>
+            <el-button type="success" @click="$router.push('/role')" v-permission="'system:role'">
+              <el-icon><Stamp /></el-icon>
               角色管理
             </el-button>
-            <el-button type="info" @click="openApiDoc">
-              <el-icon><Document /></el-icon>
-              API文档
+            <el-button type="warning" @click="$router.push('/permission')" v-permission="'system:permission'">
+              <el-icon><Key /></el-icon>
+              权限管理
+            </el-button>
+            <el-button type="info" @click="$router.push('/menu')" v-permission="'system:menu'">
+              <el-icon><Menu /></el-icon>
+              菜单管理
             </el-button>
           </div>
+        </el-card>
+      </el-col>
+    </el-row>
+
+    <el-row :gutter="20" style="margin-top: 20px;">
+      <el-col :span="24">
+        <el-card>
+          <template #header>
+            <span>系统信息</span>
+          </template>
+          <el-descriptions :column="2" border>
+            <el-descriptions-item label="系统名称">天人合一助手</el-descriptions-item>
+            <el-descriptions-item label="系统版本">v1.0.0</el-descriptions-item>
+            <el-descriptions-item label="后端框架">Spring Boot 3.2</el-descriptions-item>
+            <el-descriptions-item label="前端框架">Vue 3 + Element Plus</el-descriptions-item>
+            <el-descriptions-item label="数据库">MySQL 8.0</el-descriptions-item>
+            <el-descriptions-item label="缓存">Redis</el-descriptions-item>
+          </el-descriptions>
         </el-card>
       </el-col>
     </el-row>
@@ -85,103 +104,80 @@
 </template>
 
 <script setup>
-import { reactive } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref, onMounted } from 'vue'
+import { User, Stamp, Document, Files, Key, Menu } from '@element-plus/icons-vue'
 
-const router = useRouter()
-
-const stats = reactive({
-  totalUsers: 0,
-  totalRoles: 0,
-  activeUsers: 0
+const stats = ref({
+  userCount: 0,
+  roleCount: 0,
+  logCount: 0,
+  fileCount: 0
 })
 
-const goToUserManagement = () => {
-  router.push('/user')
-}
-
-const goToRoleManagement = () => {
-  router.push('/role')
-}
-
-const openApiDoc = () => {
-  window.open('http://localhost:8080/doc.html', '_blank')
-}
+onMounted(() => {
+  // 这里可以调用API获取实际统计数据
+  // 目前使用模拟数据
+  stats.value = {
+    userCount: 10,
+    roleCount: 3,
+    logCount: 156,
+    fileCount: 42
+  }
+})
 </script>
 
 <style scoped>
 .dashboard {
-  padding: 20px;
+  padding: 10px;
 }
 
 .stat-card {
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-.stat-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.stat-content {
   display: flex;
   align-items: center;
-  padding: 10px;
+  gap: 20px;
 }
 
 .stat-icon {
   width: 60px;
   height: 60px;
-  border-radius: 10px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 28px;
   color: white;
-  margin-right: 20px;
-}
-
-.stat-icon.user {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-}
-
-.stat-icon.role {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-}
-
-.stat-icon.active {
-  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-}
-
-.stat-icon.system {
-  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
 }
 
 .stat-info {
   flex: 1;
 }
 
+.stat-title {
+  font-size: 14px;
+  color: #909399;
+  margin-bottom: 8px;
+}
+
 .stat-value {
   font-size: 28px;
   font-weight: bold;
-  color: #333;
-  margin-bottom: 5px;
-}
-
-.stat-label {
-  font-size: 14px;
-  color: #999;
+  color: #303133;
 }
 
 .quick-actions {
   display: flex;
-  gap: 15px;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
-.quick-actions .el-button {
-  flex: 1;
-  height: 60px;
-  font-size: 16px;
+.el-card {
+  margin-bottom: 10px;
+}
+
+.el-card :deep(.el-card__header) {
+  padding: 12px 15px;
+}
+
+.el-card :deep(.el-card__body) {
+  padding: 15px;
 }
 </style>

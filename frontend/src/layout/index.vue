@@ -13,37 +13,37 @@
         :unique-opened="true"
         router
       >
-        <template v-for="menu in menus" :key="menu.path">
+        <template v-for="menu in menus" :key="menu.id">
           <!-- 一级菜单（无子菜单） -->
           <el-menu-item
             v-if="!menu.children || menu.children.length === 0"
             :index="menu.path"
           >
             <el-icon>
-              <component :is="menu.meta.icon" />
+              <component :is="menu.icon" />
             </el-icon>
-            <template #title>{{ menu.meta.title }}</template>
+            <template #title>{{ menu.permissionName }}</template>
           </el-menu-item>
           
           <!-- 一级菜单（有子菜单） -->
-          <el-sub-menu v-else :index="menu.path">
+          <el-sub-menu v-else :index="menu.path || menu.permissionCode">
             <template #title>
               <el-icon>
-                <component :is="menu.meta.icon" />
+                <component :is="menu.icon" />
               </el-icon>
-              <span>{{ menu.meta.title }}</span>
+              <span>{{ menu.permissionName }}</span>
             </template>
             
             <!-- 二级菜单 -->
             <el-menu-item
               v-for="subMenu in menu.children"
-              :key="subMenu.path"
+              :key="subMenu.id"
               :index="subMenu.path"
             >
               <el-icon>
-                <component :is="subMenu.meta.icon" />
+                <component :is="subMenu.icon" />
               </el-icon>
-              <template #title>{{ subMenu.meta.title }}</template>
+              <template #title>{{ subMenu.permissionName }}</template>
             </el-menu-item>
           </el-sub-menu>
         </template>
@@ -206,6 +206,14 @@ const handleCommand = (command) => {
 :deep(.el-sub-menu__title:hover) {
   background-color: #273c75 !important;
   color: #fff !important;
+}
+
+/* 子菜单图标样式 */
+:deep(.el-sub-menu__title .el-icon) {
+  margin-right: 10px;
+  width: 20px;
+  text-align: center;
+  color: inherit;
 }
 
 :deep(.el-sub-menu .el-menu-item) {

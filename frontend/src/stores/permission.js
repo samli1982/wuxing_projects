@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { getCurrentUserPermissions } from '@/api/permission'
+import { getMenuTree } from '@/api/menu'
 import { filterMenuByPermission } from '@/config/menu'
 
 export const usePermissionStore = defineStore('permission', {
@@ -32,15 +33,18 @@ export const usePermissionStore = defineStore('permission', {
       if (this.loaded) return
       
       try {
-        const res = await getCurrentUserPermissions()
-        this.permissions = res.data || []
+        // 加载权限列表
+        const permRes = await getCurrentUserPermissions()
+        this.permissions = permRes.data || []
+        
+        // 直接从后端加载菜单树（已经根据权限过滤）
+        const menuRes = await getMenuTree()
+        this.menus = menuRes.data || []
+        
         this.loaded = true
         
-        // 根据权限生成菜单
-        this.menus = filterMenuByPermission(this.permissions)
-        
         console.log('加载权限成功:', this.permissions.length, '个')
-        console.log('生成菜单:', this.menus.length, '个')
+        console.log('加载菜单成功:', this.menus.length, '个')
       } catch (error) {
         console.error('加载权限失败:', error)
         this.permissions = []
@@ -70,6 +74,12 @@ export const usePermissionStore = defineStore('permission', {
       this.permissions = []
       this.loaded = false
       this.menus = []
+    },
+    
+    // 刷新菜单（强制重新加载）
+    async refreshMenus() {
+      this.loaded = false
+      await this.loadPermissions()
     }
   }
 })

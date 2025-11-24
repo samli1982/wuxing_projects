@@ -34,13 +34,20 @@ INSERT INTO sys_permission (permission_name, permission_code, permission_type, p
 ('权限列表', 'system:permission:list', 2, 15, NULL, NULL, 2, 1),
 ('权限新增', 'system:permission:add', 2, 15, NULL, NULL, 3, 1),
 ('权限编辑', 'system:permission:edit', 2, 15, NULL, NULL, 4, 1),
-('权限删除', 'system:permission:delete', 2, 15, NULL, NULL, 5, 1);
+('权限删除', 'system:permission:delete', 2, 15, NULL, NULL, 5, 1),
+('字典管理', 'system:dict', 1, 1, '/system/dict', 'dict', 4, 1),
+('字典查询', 'system:dict:query', 2, 21, NULL, NULL, 1, 1),
+('字典列表', 'system:dict:list', 2, 21, NULL, NULL, 2, 1),
+('字典新增', 'system:dict:add', 2, 21, NULL, NULL, 3, 1),
+('字典编辑', 'system:dict:edit', 2, 21, NULL, NULL, 4, 1),
+('字典删除', 'system:dict:delete', 2, 21, NULL, NULL, 5, 1);
 
 -- 分配权限给超级管理员角色（拥有所有权限）
 INSERT INTO sys_role_permission (role_id, permission_id) VALUES
 (1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (1, 7),
 (1, 8), (1, 9), (1, 10), (1, 11), (1, 12), (1, 13), (1, 14),
-(1, 15), (1, 16), (1, 17), (1, 18), (1, 19), (1, 20);
+(1, 15), (1, 16), (1, 17), (1, 18), (1, 19), (1, 20),
+(1, 21), (1, 22), (1, 23), (1, 24), (1, 25), (1, 26);
 
 -- 分配权限给管理员角色（有用户和角色管理权限）
 INSERT INTO sys_role_permission (role_id, permission_id) VALUES
@@ -50,3 +57,22 @@ INSERT INTO sys_role_permission (role_id, permission_id) VALUES
 -- 分配权限给普通用户角色（只有查询权限）
 INSERT INTO sys_role_permission (role_id, permission_id) VALUES
 (3, 1), (3, 2), (3, 3), (3, 4), (3, 8), (3, 9), (3, 10);
+
+-- 插入默认字典数据
+INSERT INTO sys_dictionary (dict_type, dict_type_name, dict_key, dict_value, sort, status, remark) VALUES
+-- 用户状态
+('user_status', '用户状态', '0', '禁用', 1, 1, '用户被禁用'),
+('user_status', '用户状态', '1', '正常', 2, 1, '用户正常状态'),
+-- 性别
+('gender', '性别', '0', '未知', 1, 1, '未知性别'),
+('gender', '性别', '1', '男', 2, 1, '男性'),
+('gender', '性别', '2', '女', 3, 1, '女性'),
+-- 通用状态
+('common_status', '通用状态', '0', '禁用', 1, 1, '禁用状态'),
+('common_status', '通用状态', '1', '启用', 2, 1, '启用状态'),
+-- 是否
+('yes_no', '是否', '0', '否', 1, 1, '否'),
+('yes_no', '是否', '1', '是', 2, 1, '是'),
+-- 权限类型
+('permission_type', '权限类型', '1', '菜单', 1, 1, '菜单权限'),
+('permission_type', '权限类型', '2', '按钮', 2, 1, '按钮权限');

@@ -38,6 +38,42 @@ const router = createRouter({
           name: 'PermissionManagement',
           component: () => import('@/views/permission/index.vue'),
           meta: { title: '权限管理', icon: 'Lock' }
+        },
+        {
+          path: 'dictionary',
+          name: 'DictionaryManagement',
+          component: () => import('@/views/dictionary/index.vue'),
+          meta: { title: '字典管理', icon: 'Collection' }
+        },
+        {
+          path: 'log/operation',
+          name: 'OperationLog',
+          component: () => import('@/views/log/operation.vue'),
+          meta: { title: '操作日志', icon: 'Document' }
+        },
+        {
+          path: 'file',
+          name: 'FileManagement',
+          component: () => import('@/views/file/index.vue'),
+          meta: { title: '文件管理', icon: 'Folder' }
+        },
+        {
+          path: 'menu',
+          name: 'MenuManagement',
+          component: () => import('@/views/menu/index.vue'),
+          meta: { title: '菜单管理', icon: 'Menu' }
+        },
+        {
+          path: 'database',
+          name: 'DatabaseQuery',
+          component: () => import('@/views/database/index.vue'),
+          meta: { title: '数据库查询', icon: 'DataLine' }
+        },
+        {
+          path: 'cache',
+          name: 'CacheManagement',
+          component: () => import('@/views/cache/index.vue'),
+          meta: { title: '缓存管理', icon: 'Coin' }
         }
       ]
     }

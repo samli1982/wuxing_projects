@@ -42,6 +42,42 @@ export const menuConfig = [
           icon: 'Lock',
           permission: 'system:permission'
         }
+      },
+      {
+        path: '/dictionary',
+        name: 'DictionaryManagement',
+        meta: { 
+          title: '字典管理', 
+          icon: 'Collection',
+          permission: 'system:dict'
+        }
+      },
+      {
+        path: '/log/operation',
+        name: 'OperationLog',
+        meta: { 
+          title: '操作日志', 
+          icon: 'Document',
+          permission: 'system:log'
+        }
+      },
+      {
+        path: '/file',
+        name: 'FileManagement',
+        meta: { 
+          title: '文件管理', 
+          icon: 'Folder',
+          permission: 'system:file'
+        }
+      },
+      {
+        path: '/menu',
+        name: 'MenuManagement',
+        meta: { 
+          title: '菜单管理', 
+          icon: 'Menu',
+          permission: 'system:permission'
+        }
       }
     ]
   }

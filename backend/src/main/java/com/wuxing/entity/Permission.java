@@ -48,6 +48,11 @@ public class Permission extends BaseEntity {
     private String icon;
 
     /**
+     * 组件路径
+     */
+    private String component;
+
+    /**
      * 排序
      */
     private Integer sort;
