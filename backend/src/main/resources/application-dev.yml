@@ -1,0 +1,17 @@
+# 开发环境配置
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/wuxing_db?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: root
+    password: 
+    
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password: 
+
+# 日志级别
+logging:
+  level:
+    com.wuxing: debug

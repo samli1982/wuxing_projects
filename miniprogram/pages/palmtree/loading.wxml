@@ -1,0 +1,17 @@
+<view class="loading-page">
+  <view class="center">
+    <view class="taiji">
+      <view class="yin"></view>
+      <view class="yang"></view>
+    </view>
+    <view class="texts">
+      <view class="main">正在为您推算天人之象…</view>
+      <view class="sub">融合五运六气，解析阴阳五行流转</view>
+    </view>
+  </view>
+  <view class="decor">
+    <view class="line"></view>
+    <view class="dot left"></view>
+    <view class="dot right"></view>
+  </view>
+</view>

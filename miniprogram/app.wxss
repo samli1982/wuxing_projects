@@ -1,0 +1,8 @@
+/* 全局样式与主题色 */
+page {
+  background: #1A1C29;
+  color: #ffffff;
+}
+.text-muted { color: #BBBBBB; }
+.link { color: #457B9D; text-decoration: none; }
+.link:active { text-decoration: underline; }

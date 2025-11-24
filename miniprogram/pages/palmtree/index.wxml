@@ -1,0 +1,129 @@
+<view class="page">
+  <view class="nav">
+    <view class="nav-left"></view>
+    <view class="nav-title">我的命盘</view>
+    <view class="nav-right" bindtap="onEdit" wx:if="{{palmtrees.length > 0}}">✏️</view>
+  </view>
+
+  <!-- 空状态：无命盘时显示 -->
+  <view class="empty" wx:if="{{palmtrees.length === 0}}">
+    <text class="empty-icon">📭</text>
+    <view class="empty-text">
+      <text class="title">暂无命盘记录</text>
+      <text class="desc">您还没有创建任何命盘，</text>
+      <text class="desc">命盘是连接天地运行与个体健康的桥梁。</text>
+      <text class="hint">👉 点击右下角【+】按钮开始创建</text>
+    </view>
+  </view>
+
+  <!-- 有命盘时显示内容 -->
+  <block wx:if="{{palmtrees.length > 0}}">
+    <scroll-view class="user-selector" scroll-x="true" show-scrollbar="false">
+      <block wx:for="{{palmtrees}}" wx:key="id">
+        <view class="user-item {{selectedId===item.id?'active':''}}" bindtap="switchPalmtree" bindlongpress="onLongPress" data-id="{{item.id}}">
+          <view class="nickname">{{item.nickname}}</view>
+          <view class="year">{{item.year}}年</view>
+        </view>
+      </block>
+    </scroll-view>
+
+  <view class="ident">
+    <view class="nick">{{nickname}} 的命盘</view>
+    <view class="birth">出生于：{{birthInfo}}</view>
+  </view>
+
+  <view class="card bazi">
+    <view class="bazi-header">
+      <text>四柱八字</text>
+    </view>
+    <view class="grid">
+      <view class="cell"><text>{{eight.year.heavenly_stem}}</text></view>
+      <view class="cell"><text>{{eight.month.heavenly_stem}}</text></view>
+      <view class="cell highlight"><text>{{eight.day.heavenly_stem}}</text></view>
+      <view class="cell"><text>{{eight.hour.heavenly_stem}}</text></view>
+
+      <view class="cell"><text>{{eight.year.earthly_branch}}</text></view>
+      <view class="cell"><text>{{eight.month.earthly_branch}}</text></view>
+      <view class="cell highlight"><text>{{eight.day.earthly_branch}}</text></view>
+      <view class="cell"><text>{{eight.hour.earthly_branch}}</text></view>
+    </view>
+    <view class="note">纳音：{{nayin}}｜空亡：{{kongwang}}｜胎元：{{taiyuan}}</view>
+  </view>
+
+  <view class="card wuxing">
+    <view class="section-title">📊 五行强弱分布</view>
+    <view class="bar" bindtap="onBarTap" data-name="木"><view class="bar-fill wood" style="width: {{barWidthWood}};"></view><text class="bar-label">木 {{wuxingWood}}</text></view>
+    <view class="bar" bindtap="onBarTap" data-name="火"><view class="bar-fill fire" style="width: {{barWidthFire}};"></view><text class="bar-label">火 {{wuxingFire}}</text></view>
+    <view class="bar" bindtap="onBarTap" data-name="土"><view class="bar-fill earth" style="width: {{barWidthEarth}};"></view><text class="bar-label">土 {{wuxingEarth}}</text></view>
+    <view class="bar" bindtap="onBarTap" data-name="金"><view class="bar-fill metal" style="width: {{barWidthMetal}};"></view><text class="bar-label">金 {{wuxingMetal}}</text></view>
+    <view class="bar" bindtap="onBarTap" data-name="水"><view class="bar-fill water" style="width: {{barWidthWater}};"></view><text class="bar-label">水 {{wuxingWater}}（最弱）</text></view>
+    <view class="useful-gods">
+      <text class="gods-title">🎯 喜用神：</text>
+      <block wx:for="{{usefulGods}}" wx:key="*this">
+        <view class="god-tag">{{item}}</view>
+      </block>
+      <view class="hint" bindtap="onShowGodsTheory">？</view>
+    </view>
+  </view>
+
+  <view class="card wuyun">
+    <view class="section-title">🌤️ {{wuyunliuqi.year}}年 五运六气</view>
+    <view class="wuyun-row">
+      <view class="wuyun-tag gold">【中运】{{wuyunliuqi.transportation}}</view>
+    </view>
+    <view class="wuyun-row">
+      <view class="wuyun-tag fire">【司天】{{wuyunliuqi.tiansi}}</view>
+      <view class="wuyun-tag metal">【在泉】{{wuyunliuqi.zaiquan}}</view>
+    </view>
+    <view class="wuyun-climate">气候特征：{{wuyunliuqi.climate}}</view>
+    <view class="wuyun-warnings">
+      <view class="warn-title">健康提示：</view>
+      <block wx:for="{{wuyunliuqi.health_warnings}}" wx:key="index">
+        <view class="warn-item">• {{item}}</view>
+      </block>
+    </view>
+  </view>
+
+  <view class="card constitution">
+    <view class="section-title">🧘‍♂️ 体质类型判定</view>
+    <view class="ctype">{{constitution}}</view>
+    <view class="tags">
+      <view class="tag hot">偏热体质</view>
+      <view class="tag bright">木火通明</view>
+    </view>
+    <view class="desc">成因分析：{{analysis.cause}}</view>
+    <view class="desc">易发症状：{{analysis.symptom}}</view>
+    <view class="desc">调养方向：{{analysis.tune}}</view>
+  </view>
+
+  <view class="card tips">
+    <view class="tabs">
+      <view class="tab {{activeTab==='diet'?'active':''}}" bindtap="switchTab" data-tab="diet">🍵 饮食</view>
+      <view class="tab {{activeTab==='lifestyle'?'active':''}}" bindtap="switchTab" data-tab="lifestyle">🧘‍♀️ 起居</view>
+      <view class="tab {{activeTab==='emotion'?'active':''}}" bindtap="switchTab" data-tab="emotion">❤️ 情志</view>
+      <view class="tab {{activeTab==='herb'?'active':''}}" bindtap="switchTab" data-tab="herb">🌿 药引</view>
+    </view>
+    <view class="tip-list">
+      <block wx:for="{{displayTips}}" wx:key="index">
+        <view class="tip-item">
+          <view class="dot"></view>
+          <text class="tip-text">{{item.text}}</text>
+        </view>
+      </block>
+    </view>
+  </view>
+
+    <view class="bottom-actions">
+      <button class="btn save" bindtap="onSave">保存命盘</button>
+      <button class="btn share" open-type="share">分享报告</button>
+      <button class="btn detail" bindtap="onDetail">查看详解</button>
+    </view>
+  </block>
+
+  <!-- 悬浮新建按钮 -->
+  <movable-area class="fab-area">
+    <movable-view class="fab" direction="all" bindtap="onCreate" x="{{fabX}}" y="{{fabY}}">
+      <text>+</text>
+    </movable-view>
+  </movable-area>
+</view>

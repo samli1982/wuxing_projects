@@ -1,0 +1,30 @@
+{
+  "pages": [
+    "pages/home/index",
+    "pages/palmtree/index",
+    "pages/palmtree/new",
+    "pages/palmtree/loading",
+    "pages/palmtree/result",
+    "pages/palmtree/list",
+    "pages/herb/index",
+    "pages/learn/index"
+  ],
+  "window": {
+    "navigationStyle": "custom",
+    "backgroundTextStyle": "light",
+    "backgroundColor": "#1A1C29",
+    "enablePullDownRefresh": false
+  },
+  "tabBar": {
+    "color": "#71768A",
+    "selectedColor": "#3A9E8F",
+    "backgroundColor": "#1E1F2C",
+    "borderStyle": "black",
+    "list": [
+      {"pagePath": "pages/home/index", "text": "首页"},
+      {"pagePath": "pages/palmtree/index", "text": "命盘"},
+      {"pagePath": "pages/herb/index", "text": "药精"},
+      {"pagePath": "pages/learn/index", "text": "学堂"}
+    ]
+  }
+}

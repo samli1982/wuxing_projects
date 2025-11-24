@@ -1,0 +1,11 @@
+{
+  "miniprogramRoot": "./",
+  "setting": {
+    "urlCheck": true,
+    "es6": true,
+    "postcss": true,
+    "minified": true
+  },
+  "appid": "wx02897296c2991981",
+  "compileType": "miniprogram"
+}

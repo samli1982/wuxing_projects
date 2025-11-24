@@ -1,0 +1,57 @@
+<view class="page">
+  <view class="nav">
+    <view class="nav-left" bindtap="onBack">←</view>
+    <view class="nav-title">我的命盘</view>
+    <view class="nav-right">⚙️</view>
+  </view>
+
+  <view class="header">
+    <text class="header-icon">📋</text>
+    <view class="header-text">
+      <text class="main" wx:if="{{list.length > 0}}">您共保存了 {{list.length}} 个命盘</text>
+      <text class="main" wx:else>📭 暂未创建命盘</text>
+      <text class="sub" wx:if="{{list.length > 0}}">可随时对比分析、分享报告或导出数据</text>
+      <text class="sub" wx:else>点击右下角按钮开始您的天人之象解析之旅</text>
+    </view>
+  </view>
+
+  <view class="list" wx:if="{{list.length > 0}}">
+    <block wx:for="{{list}}" wx:key="id">
+      <view class="card-wrapper">
+        <view class="card" bindtap="onCardTap" data-id="{{item.id}}">
+          <view class="avatar" style="background-color: {{item.avatar_color}};">
+            <text>{{item.nickname.charAt(0)}}</text>
+          </view>
+          <view class="info">
+            <view class="name">{{item.nickname}} 🌿</view>
+            <view class="birth">{{item.birth_year}}年 · {{item.stem_branch}}</view>
+            <view class="tags">
+              <view class="tag constitution">体质：{{item.constitution_type}}</view>
+              <block wx:for="{{item.tags}}" wx:key="*this" wx:for-item="tag">
+                <view class="tag focus">重点关注{{tag}}</view>
+              </block>
+            </view>
+          </view>
+        </view>
+        <view class="swipe-actions">
+          <view class="action delete" bindtap="onDelete" data-id="{{item.id}}">🗑️ 删除</view>
+          <view class="action share" bindtap="onShare" data-id="{{item.id}}">📤 分享</view>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <view class="empty" wx:else>
+    <text class="empty-icon">📭</text>
+    <view class="empty-text">
+      <text class="title">暂无命盘记录</text>
+      <text class="desc">您还没有创建任何命盘，</text>
+      <text class="desc">命盘是连接天地运行与个体健康的桥梁。</text>
+      <text class="hint">👉 点击右下角【+】按钮开始创建</text>
+    </view>
+  </view>
+
+  <view class="fab" bindtap="onCreate">
+    <text>➕</text>
+  </view>
+</view>

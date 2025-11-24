@@ -1,0 +1,47 @@
+/* 页面背景采用深灰蓝渐变 */
+.page { min-height: 100vh; background-image: linear-gradient(180deg, #1A1C29 0%, #2D2F40 100%); }
+.status-bar { width: 100%; background: rgba(0,0,0,0.3); }
+
+.header { height: 80px; padding: 12px 16px; white-space: nowrap; }
+.header-item { display: inline-flex; align-items: center; margin-right: 12px; }
+.icon { margin-right: 6px; }
+.header-text { font-size: 14px; color: #fff; }
+.lunar { font-size: 14px; color: #fff; }
+.tag { display: inline-block; padding: 4px 10px; border-radius: 999px; background: #E63946; color: #fff; font-size: 12px; }
+.beidou { font-size: 12px; color: #BBBBBB; font-style: italic; }
+.divider { display: inline-block; width: 1px; height: 20px; background: rgba(255,255,255,0.2); margin: 0 8px; }
+
+.card { margin: 16px; padding: 16px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); background-image: linear-gradient(180deg, #1A1C29 0%, #2D2F40 100%); position: relative; overflow: hidden; }
+.card-year { text-align: center; color: #fff; font-size: 20px; font-weight: 600; }
+.card-year .nayin { display: block; margin-top: 4px; font-size: 14px; font-weight: 400; }
+
+.card-core { display: flex; align-items: center; margin-top: 16px; }
+.taichi { width: 64px; height: 64px; border-radius: 32px; border: 1px solid rgba(255,255,255,0.4); display: flex; align-items: center; justify-content: center; margin-right: 12px; }
+.labels { flex: 1; }
+.label { margin-bottom: 8px; }
+.label-title { color: #A8DADC; font-size: 14px; }
+.label-value { color: #fff; font-size: 14px; }
+.flow { color: #A8DADC; font-size: 12px; }
+
+.tips { margin-top: 12px; }
+.tip-item { display: flex; align-items: center; margin-bottom: 8px; }
+.dot { width: 6px; height: 6px; border-radius: 3px; background: #A8DADC; margin-right: 8px; }
+.tip-text { font-size: 14px; color: #A8DADC; }
+.more { margin-top: 4px; }
+
+.link-area { margin-top: 12px; }
+.link { color: #457B9D; font-size: 13px; }
+
+.actions { display: flex; gap: 12px; padding: 0 16px; margin-top: 16px; }
+.btn { flex: 1; height: 60px; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
+.primary { background: #3A9E8F; color: #fff; }
+.secondary { border: 1px solid #9CA3AF; color: #D1D5DB; background: transparent; }
+.btn-icon { margin-right: 6px; }
+.btn-text { font-size: 16px; }
+
+.health-banner { display: flex; align-items: center; gap: 8px; margin: 8px 16px; padding: 10px 12px; border-radius: 12px; background: rgba(244,208,111,0.125); border: 1px solid #F4D06F; }
+.health-icon { }
+.health-text { font-size: 14px; color: #E6E6E6; flex: 1; }
+.close { color: #999999; font-size: 18px; }
+
+.tabbar-placeholder { height: 58px; }

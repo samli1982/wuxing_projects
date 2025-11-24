@@ -1,0 +1,42 @@
+# 编译输出
+dist/
+build/
+target/
+*.class
+
+# 依赖
+node_modules/
+.m2/
+
+# 日志
+*.log
+logs/
+
+# 环境配置
+.env
+.env.local
+
+# IDE
+.idea/
+.vscode/
+*.iml
+*.swp
+*.swo
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 临时文件
+*.tmp
+*.temp
+/tmp/
+
+# 后端特定
+backend/.mvn/
+backend/mvnw
+backend/mvnw.cmd
+
+# 前端特定
+frontend/.env.production
+frontend/.env.development

@@ -1,0 +1,79 @@
+<view class="page">
+  <view class="nav">
+    <view class="nav-left" bindtap="onBack">←</view>
+    <view class="nav-title">创建个人命盘</view>
+  </view>
+
+  <view class="intro">
+    <text class="intro-icon">✨</text>
+    <view class="intro-texts">
+      <text class="intro-title">输入您的出生信息</text>
+      <text class="intro-sub">系统将自动推算八字、五运六气体质与调理方向</text>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-title">👤 基本信息</view>
+    <view class="form-field">
+      <input class="input" placeholder="姓名（可选）" bindinput="onInputName" value="{{form.name}}" />
+    </view>
+    <view class="form-field">
+      <input class="input required" placeholder="请输入您的称呼（昵称，必填）" bindinput="onInputNickname" value="{{form.nickname}}" />
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-title">📅 出生时间</view>
+    <view class="form-row">
+      <picker mode="selector" range="{{yearRange}}" value="{{yearIndex}}" bindchange="onYearChange">
+        <view class="picker">{{form.birth_year || '年份'}}</view>
+      </picker>
+      <picker mode="selector" range="{{monthRange}}" value="{{monthIndex}}" bindchange="onMonthChange">
+        <view class="picker">{{form.birth_month || '月份'}}</view>
+      </picker>
+      <picker mode="selector" range="{{dayRange}}" value="{{dayIndex}}" bindchange="onDayChange">
+        <view class="picker">{{form.birth_day || '日期'}}</view>
+      </picker>
+    </view>
+    <view class="form-row">
+      <picker mode="selector" range="{{shichenRange}}" value="{{shichenIndex}}" bindchange="onShichenChange">
+        <view class="picker">{{shichenLabel || '选择时辰'}}</view>
+      </picker>
+      <view class="calendar-toggle">
+        <text>公历</text>
+        <switch checked="{{form.calendar_type === 'gregorian'}}" bindchange="onCalendarSwitch" />
+        <text>农历</text>
+      </view>
+    </view>
+    <view class="hint">若不确定时辰，可选择“不详”，系统将以子时补全</view>
+  </view>
+
+  <view class="section">
+    <view class="section-title">🌍 出生地</view>
+    <view class="form-row">
+      <input class="input" placeholder="请输入出生城市，如：北京市" bindinput="onInputCity" value="{{form.location_city}}" />
+      <button class="locate" size="mini" bindtap="onLocate">📍定位</button>
+    </view>
+    <view class="hint">出生地影响真太阳时计算，建议如实填写</view>
+  </view>
+
+  <view class="section">
+    <view class="section-title">⚧️ 性别与生命周期分析</view>
+    <radio-group class="radio-group" bindchange="onGenderChange">
+      <label class="radio"><radio value="male" checked="{{form.gender === 'male'}}" /> 男</label>
+      <label class="radio"><radio value="female" checked="{{form.gender === 'female'}}" /> 女</label>
+      <label class="radio"><radio value="other" checked="{{form.gender === 'other'}}" /> 不愿透露</label>
+    </radio-group>
+    <view class="switch-row">
+      <text>用于健康分析</text>
+      <switch checked="{{form.for_health_analysis}}" bindchange="onHealthSwitch" />
+    </view>
+    <view class="hint">若关闭“健康分析”，则不启用体质模型推导</view>
+  </view>
+
+  <view class="bottom-bar">
+    <button class="submit" bindtap="onSubmit">生成我的命盘 🌿</button>
+  </view>
+
+  <view class="tabbar-placeholder"></view>
+</view>

@@ -1,0 +1,73 @@
+<view class="page">
+  <view class="status-bar" style="height: {{statusBarHeight}}px;"></view>
+
+  <scroll-view class="header" scroll-x="true" show-scrollbar="false">
+    <view class="header-item">
+      <text class="icon">☀️</text>
+      <text class="header-text">{{headerInfo.sunriseTime}}</text>
+    </view>
+    <view class="divider"></view>
+    <view class="header-item">
+      <text class="lunar">{{headerInfo.lunarDate}}</text>
+    </view>
+    <view class="divider"></view>
+    <view class="header-item">
+      <view class="tag" bindtap="onShowSolarTerm">{{headerInfo.solarTermName}} • 第{{headerInfo.solarTermDayIndex}}天</view>
+    </view>
+    <view class="divider"></view>
+    <view class="header-item clickable" bindtap="onShowSolarTerm">
+      <text class="beidou">{{headerInfo.beidouDirection}}</text>
+    </view>
+  </scroll-view>
+
+  <view class="card">
+    <view class="card-year">
+      <text>【{{wuyun.year}} {{wuyun.ganzhi}}】</text>
+      <text class="nayin">纳音：{{wuyun.nayin}}</text>
+    </view>
+
+    <view class="card-core">
+      <view class="taichi">⚪️</view>
+      <view class="labels">
+        <view class="label"><text class="label-title">司天：</text><text class="label-value">{{wuyun.sitian}}</text></view>
+        <view class="label"><text class="label-title">在泉：</text><text class="label-value">{{wuyun.zaiquan}}</text></view>
+        <view class="flow">五行流转（金→水→木→火→土）</view>
+      </view>
+    </view>
+
+    <view class="tips">
+      <block wx:for="{{displayTips}}" wx:key="index">
+        <view class="tip-item">
+          <view class="dot"></view>
+          <text class="tip-text">{{item}}</text>
+        </view>
+      </block>
+      <view class="more" wx:if="{{wuyun.healthTips.length > 3}}">
+        <text class="link" bindtap="toggleTips">{{showAllTips ? '收起' : '展开更多'}}</text>
+      </view>
+    </view>
+
+    <view class="link-area">
+      <text class="link" bindtap="goWuYunDetail">查看《五运六气详解》</text>
+    </view>
+  </view>
+
+  <view class="actions">
+    <button class="btn primary" bindtap="onCreatePalmtree">
+      <text class="btn-icon">🖋️</text>
+      <text class="btn-text">创建我的命盘</text>
+    </button>
+    <button class="btn secondary" bindtap="onViewPalmtree">
+      <text class="btn-icon">📁</text>
+      <text class="btn-text">{{hasPalmtree ? latestPalmtreeSummary : '暂未创建'}}</text>
+    </button>
+  </view>
+
+  <view class="health-banner" wx:if="{{healthTipVisible}}">
+    <text class="health-icon">💡</text>
+    <text class="health-text">{{healthTipText}}</text>
+    <text class="close" bindtap="onCloseHealthTip">×</text>
+  </view>
+
+  <view class="tabbar-placeholder"></view>
+</view>

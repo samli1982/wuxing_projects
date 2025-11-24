@@ -1,0 +1,75 @@
+<view class="page">
+  <view class="nav">
+    <view class="nav-left" bindtap="onBack">←</view>
+    <view class="nav-title">二十五味药精</view>
+    <view class="nav-right" bindtap="onSearch">🔍</view>
+  </view>
+
+  <view class="motto">
+    <text class="line">🌿 以陰陽寒熱之氣為綱</text>
+    <text class="line">以五藏虛實認識疾病</text>
+    <text class="line">以氣味和合治療疾病</text>
+    <view class="hint" bindtap="onShowTheory">❔ 查看《辅行诀》原文</view>
+  </view>
+
+  <view class="filters">
+    <scroll-view class="tab-parent" scroll-x="true" show-scrollbar="false">
+      <view class="tab {{activeParent==='木'?'active':''}}" bindtap="switchParent" data-val="木">木</view>
+      <view class="tab {{activeParent==='火'?'active':''}}" bindtap="switchParent" data-val="火">火</view>
+      <view class="tab {{activeParent==='土'?'active':''}}" bindtap="switchParent" data-val="土">土</view>
+      <view class="tab {{activeParent==='金'?'active':''}}" bindtap="switchParent" data-val="金">金</view>
+      <view class="tab {{activeParent==='水'?'active':''}}" bindtap="switchParent" data-val="水">水</view>
+    </scroll-view>
+    <scroll-view class="tab-child" scroll-x="true" show-scrollbar="false">
+      <block wx:for="{{childTabs}}" wx:key="*this">
+        <view class="tab-child-item {{activeSub===item?'active':''}}" bindtap="switchSub" data-val="{{item}}">{{item}}</view>
+      </block>
+    </scroll-view>
+  </view>
+
+  <view class="list" wx:if="{{list.length > 0}}">
+    <block wx:for="{{list}}" wx:key="id">
+      <view class="card" bindtap="onCardTap" data-id="{{item.id}}" bindlongpress="onToggleCollect" data-id="{{item.id}}">
+        <view class="collect" wx:if="{{item.is_collected}}">❤️</view>
+        <view class="card-header">
+          <text class="number">{{item.number}}</text>
+          <text class="category">{{item.category}}</text>
+          <text class="icon">{{item.categoryIcon}}</text>
+        </view>
+        <view class="name">{{item.name}}（{{item.alias[0]}}）</view>
+        <view class="props">
+          <block wx:for="{{item.properties.taste}}" wx:key="*this" wx:for-item="taste">
+            <view class="prop-tag taste">{{taste}}</view>
+          </block>
+          <view class="prop-tag nature {{item.properties.natureClass}}">{{item.properties.nature}}</view>
+        </view>
+        <view class="effects">{{item.effects[0]}}</view>
+      </view>
+    </block>
+  </view>
+
+  <view class="empty" wx:else>
+    <text class="empty-icon">📭</text>
+    <view class="empty-text">
+      <text class="title">未找到匹配的药精</text>
+      <text class="desc">当前筛选条件下暂无数据，</text>
+      <text class="desc">请尝试更换分类或使用搜索功能。</text>
+      <button class="reset" bindtap="onReset">重置筛选</button>
+    </view>
+  </view>
+
+  <view class="search-panel" wx:if="{{showSearch}}">
+    <view class="search-bar">
+      <view class="close" bindtap="onCloseSearch">×</view>
+      <input class="search-input" placeholder="输入药名、功效、性味…" bindinput="onSearchInput" value="{{searchKeyword}}" confirm-type="search" bindconfirm="onSearchConfirm" />
+    </view>
+    <view class="search-results" wx:if="{{searchResults.length > 0}}">
+      <block wx:for="{{searchResults}}" wx:key="id">
+        <view class="search-item" bindtap="onSearchResultTap" data-id="{{item.id}}">
+          <text class="search-name">{{item.name}}</text>
+          <text class="search-cat">{{item.category}}</text>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>
