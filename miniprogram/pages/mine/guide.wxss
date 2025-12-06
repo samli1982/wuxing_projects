@@ -1,7 +1,8 @@
-.page { background: #1A1C29; color: #fff; display: flex; flex-direction: column; height: 100vh; }
+.status-bar { width: 100%; background: #F5F5F5; height: auto; color: #333333; }
+.page { background: #F5F5F5; color: #333333; display: flex; flex-direction: column; height: 100vh; }
 
 /* 导航栏 */
-.nav { height: 44px; display: flex; align-items: center; padding: 0 12px; background: rgba(0,0,0,0.3); }
+.nav { height: 44px; display: flex; align-items: center; padding: 0 12px; background: #F0F0F0; }
 .nav-left { width: 44px; font-size: 18px; }
 .nav-title { flex: 1; text-align: center; font-size: 17px; font-weight: 600; }
 .nav-right { width: 44px; }
@@ -13,7 +14,7 @@
 .guide-section { margin-bottom: 24px; }
 .guide-title { 
   font-size: 16px; 
-  color: #FFFFFF; 
+  color: #333333; 
   font-weight: 600; 
   margin-bottom: 12px;
   padding-bottom: 8px;
@@ -22,7 +23,7 @@
 
 .guide-desc { 
   font-size: 13px; 
-  color: #BBBBBB; 
+  color: #999999; 
   line-height: 1.8;
 }
 
@@ -35,12 +36,12 @@
 
 .item-title { 
   font-size: 14px; 
-  color: #3A9E8F; 
+  color: #07c160; 
   font-weight: 600;
   margin-bottom: 6px;
 }
 .item-desc { 
   font-size: 12px; 
-  color: #BBBBBB; 
+  color: #999999; 
   line-height: 1.6;
 }

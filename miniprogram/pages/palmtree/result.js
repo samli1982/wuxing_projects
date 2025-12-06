@@ -58,16 +58,53 @@ Page({
     displayTips: []
   },
   onLoad() {
+    // 检查登录状态，未登录则跳转到登录页
+    const { requireLogin } = require('../../utils/auth.js');
+    if (!requireLogin()) {
+      // 如果未登录或用户取消登录，停止页面加载
+      return;
+    }
+    
     this.loadPalmtrees();
     this.loadCurrent();
   },
+  onShow() {
+    // 每次页面显示时都检查登录状态
+    const { requireLogin } = require('../../utils/auth.js');
+    if (!requireLogin()) {
+      // 如果未登录或用户取消登录，停止页面加载
+      return;
+    }
+  },
   loadPalmtrees() {
-    wx.getStorage({ key: 'palmtrees', success: (res) => {
-      const list = res.data || [];
+    // 检查登录状态
+    const { requireLogin } = require('../../utils/auth.js');
+    if (!requireLogin()) {
+      return;
+    }
+    
+    // 从后端加载当前用户的命盘列表
+    const request = require('../../utils/request.js');
+    request.get('/palmtree/list').then((res) => {
+      const data = res.data || res;
+      const list = Array.isArray(data) ? data : (data.records || []);
       this.setData({ palmtrees: list, selectedId: list.length > 0 ? list[list.length - 1].id : '' });
-    }, fail: () => this.setData({ palmtrees: [], selectedId: '' }) });
+    }).catch((err) => {
+      console.error('加载命盘列表失败:', err);
+      // 故際佔杨：仅从本地存储加载
+      wx.getStorage({ key: 'palmtrees', success: (res) => {
+        const list = res.data || [];
+        this.setData({ palmtrees: list, selectedId: list.length > 0 ? list[list.length - 1].id : '' });
+      }, fail: () => this.setData({ palmtrees: [], selectedId: '' }) });
+    });
   },
   loadCurrent() {
+    // 检查登录状态
+    const { requireLogin } = require('../../utils/auth.js');
+    if (!requireLogin()) {
+      return;
+    }
+    
     wx.getStorage({ key: 'palmtree_latest', success: (res) => {
       const f = res.data || {};
       const nick = f.nickname || f.name || '未命名';
@@ -102,11 +139,23 @@ Page({
     this.setData({ displayTips: this.data.allTips[this.data.activeTab] });
   },
   switchTab(e) {
+    // 检查登录状态
+    const { requireLogin } = require('../../utils/auth.js');
+    if (!requireLogin()) {
+      return;
+    }
+    
     const tab = e.currentTarget.dataset.tab;
     this.setData({ activeTab: tab });
     this._updateTips();
   },
   onBarTap(e) {
+    // 检查登录状态
+    const { requireLogin } = require('../../utils/auth.js');
+    if (!requireLogin()) {
+      return;
+    }
+    
     const name = e.currentTarget.dataset.name;
     const explain = {
       '木': '木弱：肝胆气不足，易情绪波动，可补木青色食物',
@@ -121,17 +170,41 @@ Page({
     wx.redirectTo({ url: '/pages/palmtree/new' });
   },
   switchPalmtree(e) {
+    // 检查登录状态
+    const { requireLogin } = require('../../utils/auth.js');
+    if (!requireLogin()) {
+      return;
+    }
+    
     const id = e.currentTarget.dataset.id;
     this.setData({ selectedId: id });
     wx.showToast({ title: '命盘已切换', icon: 'none' });
   },
   onCreate() {
+    // 检查登录状态
+    const { requireLogin } = require('../../utils/auth.js');
+    if (!requireLogin()) {
+      return;
+    }
+    
     wx.navigateTo({ url: '/pages/palmtree/new' });
   },
   onEdit() {
+    // 检查登录状态
+    const { requireLogin } = require('../../utils/auth.js');
+    if (!requireLogin()) {
+      return;
+    }
+    
     wx.showToast({ title: '编辑功能待实现', icon: 'none' });
   },
   onLongPress(e) {
+    // 检查登录状态
+    const { requireLogin } = require('../../utils/auth.js');
+    if (!requireLogin()) {
+      return;
+    }
+    
     const id = e.currentTarget.dataset.id;
     wx.showActionSheet({
       itemList: ['重命名', '删除'],
@@ -152,25 +225,65 @@ Page({
     });
   },
   onShowGodsTheory() {
+    // 检查登录状态
+    const { requireLogin } = require('../../utils/auth.js');
+    if (!requireLogin()) {
+      return;
+    }
+    
     wx.showModal({ title: '喜用神原理', content: '喜用神是补益命局五行、调节阴阳平衡的关键。日主癸水弱，火旺克金，宜补水助金以平衡全局。', showCancel: false });
   },
   onSave() {
-    const item = {
-      palmtree_id: `pt_${Date.now()}`,
-      nickname: this.data.nickname,
-      created_at: new Date().toISOString()
-    };
-    wx.getStorage({ key: 'palmtrees', success: (res) => {
-      const list = res.data || [];
-      list.push(item);
-      wx.setStorage({ key: 'palmtrees', data: list });
-      wx.showToast({ title: '已保存', icon: 'success' });
-    }, fail: () => {
-      wx.setStorage({ key: 'palmtrees', data: [item] });
-      wx.showToast({ title: '已保存', icon: 'success' });
-    }});
+    // 检查登录状态
+    const { requireLogin } = require('../../utils/auth.js');
+    if (!requireLogin()) {
+      return;
+    }
+    
+    // 从本地存储获取最新的命盘数据
+    wx.getStorage({ 
+      key: 'palmtree_latest', 
+      success: (res) => {
+        const formData = res.data;
+        
+        // 构建提交数据
+        const submitData = {
+          nickname: formData.nickname,
+          name: formData.name,
+          gender: formData.gender,
+          birth_year: formData.birth_year,
+          birth_month: formData.birth_month,
+          birth_day: formData.birth_day,
+          birth_hour_type: formData.birth_hour_type,
+          hour_index: formData.hour_index,
+          location_city: formData.location_city,
+          location_lat: formData.location_lat,
+          location_lng: formData.location_lng,
+          calendar_type: formData.calendar_type,
+          for_health_analysis: formData.for_health_analysis ? 1 : 0
+        };
+        
+        // 调用后端 API 保存命盘
+        const request = require('../../utils/request.js');
+        request.post('/palmtree/save', submitData).then((res) => {
+          wx.showToast({ title: '命盘已保存', icon: 'success' });
+        }).catch((err) => {
+          console.error('保存命盘失败:', err);
+          wx.showToast({ title: '保存失败，请稍后重试', icon: 'none' });
+        });
+      },
+      fail: () => {
+        wx.showToast({ title: '无可保存的命盘数据', icon: 'none' });
+      }
+    });
   },
   onDetail() {
+    // 检查登录状态
+    const { requireLogin } = require('../../utils/auth.js');
+    if (!requireLogin()) {
+      return;
+    }
+    
     wx.navigateTo({ url: '/pages/learn/index' });
   },
   onShareAppMessage() {

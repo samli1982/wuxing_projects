@@ -38,11 +38,34 @@ Page({
   },
 
   onLoad() {
+    // 检查登录状态，未登录则跳转到登录页
+    const { requireLogin } = require('../../utils/auth.js');
+    if (!requireLogin()) {
+      // 如果未登录或用户取消登录，停止页面加载
+      return;
+    }
+    
     console.log('✅ 我的页面已加载');
     this.loadUserData();
   },
+  
+  onShow() {
+    // 每次页面显示时都检查登录状态
+    const { requireLogin } = require('../../utils/auth.js');
+    if (!requireLogin()) {
+      // 如果未登录或用户取消登录，停止页面加载
+      return;
+    }
+  },
 
   onPullDownRefresh() {
+    // 检查登录状态
+    const { requireLogin } = require('../../utils/auth.js');
+    if (!requireLogin()) {
+      wx.stopPullDownRefresh();
+      return;
+    }
+    
     console.log('🔄 下拉刷新...');
     this.loadUserData();
     setTimeout(() => {
@@ -52,6 +75,12 @@ Page({
   },
 
   loadUserData() {
+    // 检查登录状态
+    const { requireLogin } = require('../../utils/auth.js');
+    if (!requireLogin()) {
+      return;
+    }
+    
     // 从本地存储加载用户数据
     wx.getStorage({
       key: 'user_info',
@@ -64,10 +93,22 @@ Page({
   },
 
   onProfileEdit() {
+    // 检查登录状态
+    const { requireLogin } = require('../../utils/auth.js');
+    if (!requireLogin()) {
+      return;
+    }
+    
     wx.navigateTo({ url: '/pages/mine/profile' });
   },
 
   onQuickAction(e) {
+    // 检查登录状态
+    const { requireLogin } = require('../../utils/auth.js');
+    if (!requireLogin()) {
+      return;
+    }
+    
     const action = e.currentTarget.dataset.action;
     const actionMap = {
       palmtrees: '/pages/palmtree/list',
@@ -101,19 +142,43 @@ Page({
   },
 
   onViewAllPalmtrees() {
+    // 检查登录状态
+    const { requireLogin } = require('../../utils/auth.js');
+    if (!requireLogin()) {
+      return;
+    }
+    
     wx.navigateTo({ url: '/pages/palmtree/list' });
   },
 
   onViewNotes() {
+    // 检查登录状态
+    const { requireLogin } = require('../../utils/auth.js');
+    if (!requireLogin()) {
+      return;
+    }
+    
     wx.navigateTo({ url: '/pages/learn/notes' });
   },
 
   onContinueLearn(e) {
+    // 检查登录状态
+    const { requireLogin } = require('../../utils/auth.js');
+    if (!requireLogin()) {
+      return;
+    }
+    
     const courseId = e.currentTarget.dataset.courseId;
     wx.navigateTo({ url: `/pages/learn/course?id=${courseId}` });
   },
 
   onToggleTheme() {
+    // 检查登录状态
+    const { requireLogin } = require('../../utils/auth.js');
+    if (!requireLogin()) {
+      return;
+    }
+    
     const newTheme = this.data.themeMode === 'dark' ? 'light' : 'dark';
     this.setData({ themeMode: newTheme });
     wx.setStorage({
@@ -124,6 +189,12 @@ Page({
   },
 
   onOpenSettings(e) {
+    // 检查登录状态
+    const { requireLogin } = require('../../utils/auth.js');
+    if (!requireLogin()) {
+      return;
+    }
+    
     const type = e.currentTarget.dataset.type;
     const settingsMap = {
       privacy: '/pages/mine/privacy',
@@ -164,20 +235,9 @@ Page({
       cancelText: '取消',
       success: (res) => {
         if (res.confirm) {
-          // 清除本地所有数据
-          wx.clearStorage();
-          
-          // 显示退出成功提示
-          wx.showToast({
-            title: '已退出登录',
-            icon: 'success',
-            duration: 1500
-          });
-
-          // 延迟后返回首页
-          setTimeout(() => {
-            wx.redirectTo({ url: '/pages/home/index' });
-          }, 1500);
+          // 使用应用级退出登录方法
+          const app = getApp();
+          app.logout();
         }
       }
     });

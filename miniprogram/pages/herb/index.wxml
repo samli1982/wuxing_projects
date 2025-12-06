@@ -1,4 +1,5 @@
 <view class="page">
+  <view class="status-bar"></view>
   <view class="nav">
     <view class="nav-left" bindtap="onBack">←</view>
     <view class="nav-title">二十五味药精</view>
@@ -29,19 +30,19 @@
 
   <view class="list" wx:if="{{list.length > 0}}">
     <block wx:for="{{list}}" wx:key="id">
-      <view class="card" bindtap="onCardTap" data-id="{{item.id}}" bindlongpress="onToggleCollect" data-id="{{item.id}}">
+      <view class="card" bindtap="onCardTap" data-id="{{item.id}}">
         <view class="collect" wx:if="{{item.is_collected}}">❤️</view>
         <view class="card-header">
           <text class="number">{{item.number}}</text>
           <text class="category">{{item.category}}</text>
           <text class="icon">{{item.categoryIcon}}</text>
         </view>
-        <view class="name">{{item.name}}（{{item.alias[0]}}）</view>
+        <view class="name">{{item.name}}（{{item.alias}}）</view>
         <view class="props">
-          <block wx:for="{{item.properties.taste}}" wx:key="*this" wx:for-item="taste">
+          <block wx:for="{{item.taste}}" wx:key="*this" wx:for-item="taste">
             <view class="prop-tag taste">{{taste}}</view>
           </block>
-          <view class="prop-tag nature {{item.properties.natureClass}}">{{item.properties.nature}}</view>
+          <view class="prop-tag nature {{item.natureClass}}">{{item.properties}}</view>
         </view>
         <view class="effects">{{item.effects[0]}}</view>
       </view>

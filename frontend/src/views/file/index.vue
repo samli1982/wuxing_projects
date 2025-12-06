@@ -41,7 +41,7 @@
       </el-form>
 
       <!-- 文件列表 -->
-      <el-table :data="fileList" style="width: 100%; flex: 1;" border stripe v-loading="loading">
+      <el-table :data="fileList" style="width: 100%; flex: 1;" border stripe v-loading="loading" :max-height="tableHeight">
         <el-table-column prop="id" label="ID" width="80" />
         <el-table-column prop="fileName" label="文件名称" min-width="200" show-overflow-tooltip />
         <el-table-column label="预览" width="100" align="center">
@@ -122,7 +122,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive, onMounted, nextTick } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Upload, Download, Delete, View, Document } from '@element-plus/icons-vue'
 import { getFileList, deleteFile } from '@/api/file'
@@ -133,6 +133,7 @@ const fileList = ref([])
 const total = ref(0)
 const previewVisible = ref(false)
 const previewFile = ref({})
+const tableHeight = ref(600)
 
 const queryForm = reactive({
   current: 1,
@@ -253,8 +254,26 @@ const formatDateTime = (dateTime) => {
   return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`
 }
 
+// 计算表格高度
+function calculateTableHeight() {
+  nextTick(() => {
+    const cardBody = document.querySelector('.file-management .el-card__body')
+    if (cardBody) {
+      const searchForm = document.querySelector('.search-form')
+      const pagination = document.querySelector('.pagination-container')
+      const bodyHeight = cardBody.clientHeight
+      const searchHeight = searchForm ? searchForm.clientHeight + 10 : 0
+      const paginationHeight = pagination ? pagination.clientHeight + 5 : 0
+      const availableHeight = bodyHeight - searchHeight - paginationHeight - 10
+      tableHeight.value = Math.max(availableHeight, 400)
+    }
+  })
+}
+
 onMounted(() => {
   loadFileList()
+  calculateTableHeight()
+  window.addEventListener('resize', calculateTableHeight)
 })
 </script>
 

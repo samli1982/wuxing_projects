@@ -1,0 +1,130 @@
+<view class="page">
+  <view class="status-bar" style="height: {{statusBarHeight}}px;"></view>
+
+  <!-- 页面标题栏 -->
+  <view class="header">
+    <text class="back" bindtap="onBack">←</text>
+    <text class="title">【{{wuyun.year}} {{wuyun.ganzhi}}】五运六气详解</text>
+    <view class="placeholder"></view>
+  </view>
+
+  <!-- 滚动内容区 -->
+  <scroll-view class="content-scroll" scroll-y="true">
+    <view class="content">
+      <!-- 纳音 -->
+      <view class="section">
+        <view class="label">纳音</view>
+        <text class="value">{{wuyun.nayin}}</text>
+      </view>
+
+      <!-- 五运 -->
+      <view class="section-title">【五运】</view>
+      <view class="section">
+        <view class="label">中运</view>
+        <text class="value">{{wuyun.wuyun}}</text>
+      </view>
+
+      <!-- 六气流转 -->
+      <view class="section-title">【六气流转】</view>
+      <view class="section">
+        <view class="label">司天</view>
+        <text class="value">{{wuyun.sitian}}（上半年主气）</text>
+      </view>
+      <view class="section">
+        <view class="label">在泉</view>
+        <text class="value">{{wuyun.zaiquan}}（下半年主气）</text>
+      </view>
+
+      <!-- 气候特征 -->
+      <view class="section-title">【气候特征】</view>
+      <view class="section climate-section">
+        <text class="climate-text">{{wuyun.climate}}</text>
+      </view>
+
+      <!-- 健康提示 -->
+      <view class="section-title">【健康提示】</view>
+      <view class="tips-container">
+        <block wx:for="{{wuyun.healthTips}}" wx:key="index">
+          <view class="tip-item">
+            <view class="tip-number">{{index + 1}}</view>
+            <text class="tip-text">{{item}}</text>
+          </view>
+        </block>
+      </view>
+
+      <!-- 六气客气循环同心圆 -->
+      <view class="section-title">【六气客气循环】</view>
+      <view class="diagram-wrapper">
+        <!-- 中心年支 -->
+        <view class="circle-center">{{wuyun.ganzhi}}</view>
+        
+        <!-- 中间圆6个气点 -->
+        <view class="circle-mid">
+          <!-- 第1格：厥阴风木（中心位置 60度） -->
+          <view class="qi-point qi-sitian" style="bottom: 15%; left: 25%;">
+            <view class="qi-name">厥阴</view>
+            <view class="qi-element">风木</view>
+          </view>
+          
+          <!-- 第2格：少阴君火（中心位置 120度） -->
+          <view class="qi-point qi-sitian" style="top: 5%; left: 15%;">
+            <view class="qi-name">少阴</view>
+            <view class="qi-element">君火</view>
+          </view>
+          
+          <!-- 第3格：太阴湿土（中心位置 180度） -->
+          <view class="qi-point qi-sitian" style="top: 15%; left: 50%; transform: translateX(-50%);">
+            <view class="qi-name">太阴</view>
+            <view class="qi-element">湿土</view>
+          </view>
+          
+          <!-- 第4格：少阳相火（中心位置 240度） -->
+          <view class="qi-point qi-zaiquan" style="top: 15%; right: 15%;">
+            <view class="qi-name">少阳</view>
+            <view class="qi-element">相火</view>
+          </view>
+          
+          <!-- 第5格：阳明燥金（中心位置 300度） -->
+          <view class="qi-point qi-zaiquan" style="bottom: 5%; right: 15%;">
+            <view class="qi-name">阳明</view>
+            <view class="qi-element">燥金</view>
+          </view>
+          
+          <!-- 第6格：太阳寒水（中心位置 0度/360度） -->
+          <view class="qi-point qi-zaiquan" style="bottom: 15%; left: 50%; transform: translateX(-50%);">
+            <view class="qi-name">太阳</view>
+            <view class="qi-element">寒水</view>
+          </view>
+        </view>
+        
+        <!-- 外圆的5个主要节气 — 按照360度圆周精确位置标注 -->
+        <view class="circle-outer">
+          <!-- 立春 315度（左下角） -->
+          <view class="season-point season-sitian" style="bottom: -8%; left: 25%;">立春</view>
+          
+          <!-- 春分 0度（正右侧，外圆外） -->
+          <view class="season-point season-sitian" style="top: 50%; right: -12%;">春分</view>
+          
+          <!-- 司天 90度（正上方） -->
+          <view class="season-point season-sitian" style="top: -8%; left: 50%; transform: translateX(-50%);">司天</view>
+          
+          <!-- 秋分 180度（正左侧） -->
+          <view class="season-point season-zaiquan" style="top: 50%; left: -6%;">秋分</view>
+          
+          <!-- 在泉 270度（正下方） -->
+          <view class="season-point season-zaiquan" style="bottom: -8%; left: 50%; transform: translateX(-50%);">在泉</view>
+        </view>
+        
+        <!-- 六等分线 -->
+        <view class="divider-line divider-line-1"></view>
+        <view class="divider-line divider-line-2"></view>
+        <view class="divider-line divider-line-3"></view>
+        <view class="divider-line divider-line-4"></view>
+        <view class="divider-line divider-line-5"></view>
+        <view class="divider-line divider-line-6"></view>
+      </view>
+
+      <view class="placeholder-bottom"></view>
+    </view>
+  </scroll-view>
+</view>

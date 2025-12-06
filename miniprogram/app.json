@@ -1,12 +1,15 @@
 {
   "pages": [
+    "pages/login/index",
     "pages/home/index",
+    "pages/emperor-calendar/index",
     "pages/palmtree/index",
     "pages/palmtree/new",
     "pages/palmtree/loading",
     "pages/palmtree/result",
-    "pages/palmtree/list",
+    "pages/wuyun/detail",
     "pages/herb/index",
+    "pages/herb/detail",
     "pages/learn/index",
     "pages/mine/index",
     "pages/mine/profile",
@@ -19,14 +22,15 @@
   ],
   "window": {
     "navigationStyle": "custom",
-    "backgroundTextStyle": "light",
-    "backgroundColor": "#1A1C29",
+    "backgroundTextStyle": "dark",
+    "backgroundColor": "#F5F5F5",
+    "statusBarStyle": "black",
     "enablePullDownRefresh": false
   },
   "tabBar": {
-    "color": "#71768A",
-    "selectedColor": "#3A9E8F",
-    "backgroundColor": "#1E1F2C",
+    "color": "#999999",
+    "selectedColor": "#07c160",
+    "backgroundColor": "#FFFFFF",
     "borderStyle": "black",
     "list": [
       {"pagePath": "pages/home/index", "text": "首页"},

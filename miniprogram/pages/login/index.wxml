@@ -1,0 +1,43 @@
+<view class="container">
+  <view class="header">
+    <view class="logo-placeholder"></view>
+    <text class="title">欢迎使用</text>
+    <text class="subtitle">天人合一助手</text>
+  </view>
+
+  <view class="login-section">
+    <!-- 手机授权登录按钮 -->
+    <button 
+      wx:if="{{needPhoneAuth}}"
+      class="phone-login-btn" 
+      open-type="getPhoneNumber"
+      bindgetphonenumber="onPhoneAuthLogin"
+      hover-class="button-hover"
+    >
+      <text class="btn-text">手机授权登录</text>
+    </button>
+    
+    <!-- 快速登录按钮（已有账号） -->
+    <button 
+      wx:else
+      class="phone-login-btn" 
+      bindtap="onQuickLogin"
+      hover-class="button-hover"
+    >
+      <text class="btn-text">快速登录</text>
+    </button>
+
+    <!-- 用户协议 -->
+    <view class="agreement">
+      <text class="agreement-text">登录即表示您同意</text>
+      <text class="link" bindtap="onAgreement">《用户协议》</text>
+      <text class="agreement-text">和</text>
+      <text class="link" bindtap="onPrivacy">《隐私政策》</text>
+    </view>
+  </view>
+
+  <!-- 游客模式按钮 -->
+  <view class="back-btn" bindtap="onGuestMode">
+    <text class="back-text">游客模式</text>
+  </view>
+</view>

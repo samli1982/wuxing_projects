@@ -28,6 +28,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public User findByUsername(String username) {
         return userMapper.findByUsername(username);
     }
+    
+    @Override
+    public User findByOpenid(String openid) {
+        return userMapper.findByOpenid(openid);
+    }
+    
+    @Override
+    public String generateToken(Long userId, String username) {
+        return jwtUtil.generateToken(userId, username);
+    }
 
     @Override
     @Transactional(rollbackFor = Exception.class)

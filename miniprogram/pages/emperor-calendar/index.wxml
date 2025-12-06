@@ -1,0 +1,116 @@
+<view class="page">
+  <view class="status-bar" style="height: {{statusBarHeight}}px;"></view>
+  
+  <!-- 顾部导航 -->
+  <view class="header">
+    <view class="date-selector" bindtap="onSelectDate">
+      <text class="select-icon">📅</text>
+    </view>
+    <view class="header-title">干支纪年历</view>
+  </view>
+
+  <!-- 日期导航和信息 -->
+  <view class="date-navigation">
+    <view class="nav-arrow left" bindtap="onPrevDay">‹</view>
+    <view class="date-info">
+      <view class="solar-date">{{selectedDate.solarDate}} {{selectedDate.weekday}}</view>
+      <view class="lunar-date">{{lunarInfo.lunarDate}}</view>
+      <view class="ganzhi-display">
+        <text class="ganzhi-year">{{ganzhiInfo.year}}({{ganzhiInfo.zodiac}})年</text>
+        <text class="ganzhi-month">{{ganzhiInfo.month}}月</text>
+        <text class="ganzhi-day">{{ganzhiInfo.day}}日</text>
+      </view>
+      <view class="ganzhi-sound">
+        <text class="sound-item">{{ganzhiInfo.yearSound}}</text>
+        <text class="sound-item">{{ganzhiInfo.monthSound}}</text>
+        <text class="sound-item">{{ganzhiInfo.daySound}}</text>
+      </view>
+    </view>
+    <view class="nav-arrow right" bindtap="onNextDay">›</view>
+  </view>
+
+  <!-- 宜忌信息 -->
+  <view class="yi-ji-container">
+    <view class="yi-ji-card yi-card">
+      <view class="yi-ji-title">宜</view>
+      <text class="yi-ji-content">{{yijiInfo.yi}}</text>
+    </view>
+    <view class="yi-ji-card ji-card">
+      <view class="yi-ji-title">忌</view>
+      <text class="yi-ji-content">{{yijiInfo.ji}}</text>
+    </view>
+  </view>
+
+  <!-- 时辰吉凶 -->
+  <view class="shichen-container">
+    <view class="shichen-title">时辰吉凶</view>
+    <view class="shichen-grid">
+      <block wx:for="{{shiChenList}}" wx:key="index">
+        <view class="shichen-item {{item.isShuifu ? 'shichen-auspicious' : 'shichen-inauspicious'}}">
+          <text class="shichen-time">{{item.time}}</text>
+          <text class="shichen-name">{{item.name}}</text>
+          <text class="shichen-status">{{item.status}} ({{item.isShuifu}})</text>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <!-- 详细信息 -->
+  <view class="detail-container">
+    <view class="detail-section">
+      <view class="section-title">干支详细信息</view>
+      <view class="detail-item">
+        <text class="detail-label">纳音：</text>
+        <text class="detail-value">{{detailInfo.nayin}}</text>
+      </view>
+      <view class="detail-item">
+        <text class="detail-label">值神：</text>
+        <text class="detail-value">{{detailInfo.duty}}</text>
+      </view>
+      <view class="detail-item">
+        <text class="detail-label">十二神：</text>
+        <text class="detail-value">{{detailInfo.twelveStar}}</text>
+      </view>
+      <view class="detail-item">
+        <text class="detail-label">星宿：</text>
+        <text class="detail-value">{{detailInfo.twentyEightStar}}</text>
+      </view>
+    </view>
+    <view class="detail-section">
+      <view class="section-title">传统宜忌</view>
+      <view class="detail-item">
+        <text class="detail-label">冲煞：</text>
+        <text class="detail-value">{{detailInfo.chongsha}}</text>
+      </view>
+      <view class="detail-item">
+        <text class="detail-label">建除：</text>
+        <text class="detail-value">{{detailInfo.jianzhu}}</text>
+      </view>
+      <view class="detail-item">
+        <text class="detail-label">吉神：</text>
+        <text class="detail-value">{{detailInfo.jishen}}</text>
+      </view>
+      <view class="detail-item">
+        <text class="detail-label">凶神：</text>
+        <text class="detail-value">{{detailInfo.xiongshen}}</text>
+      </view>
+      <view class="detail-item">
+        <text class="detail-label">胎神：</text>
+        <text class="detail-value">{{detailInfo.taishen}}</text>
+      </view>
+    </view>
+    <view class="detail-section">
+      <view class="section-title">其他信息</view>
+      <view class="detail-item">
+        <text class="detail-label">星宿：</text>
+        <text class="detail-value">{{detailInfo.xingxiu}}</text>
+      </view>
+      <view class="detail-item">
+        <text class="detail-label">彭祖百忌：</text>
+        <text class="detail-value">{{detailInfo.pengzu}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="tabbar-placeholder"></view>
+</view>

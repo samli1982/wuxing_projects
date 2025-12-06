@@ -32,8 +32,9 @@
       <el-table
         :data="tableData"
         stripe
-        style="width: 100%"
+        style="width: 100%; flex: 1;"
         v-loading="loading"
+        :max-height="tableHeight"
       >
         <el-table-column prop="id" label="ID" width="80" />
         <el-table-column prop="roleName" label="角色名称" />
@@ -272,6 +273,7 @@ const currentRoleId = ref(null)
 const currentRoleName = ref('')
 const selectedCount = ref(0)
 const totalPermissionCount = ref(0)
+const tableHeight = ref(600)
 
 const searchForm = reactive({
   roleName: ''
@@ -598,8 +600,26 @@ const handlePermissionDialogClose = () => {
   permissionTreeData.value = []
 }
 
+// 计算表格高度
+function calculateTableHeight() {
+  nextTick(() => {
+    const cardBody = document.querySelector('.role-management .el-card__body')
+    if (cardBody) {
+      const searchForm = document.querySelector('.search-form')
+      const pagination = document.querySelector('.pagination-container')
+      const bodyHeight = cardBody.clientHeight
+      const searchHeight = searchForm ? searchForm.clientHeight + 10 : 0
+      const paginationHeight = pagination ? pagination.clientHeight + 5 : 0
+      const availableHeight = bodyHeight - searchHeight - paginationHeight - 10
+      tableHeight.value = Math.max(availableHeight, 400)
+    }
+  })
+}
+
 onMounted(() => {
   getList()
+  calculateTableHeight()
+  window.addEventListener('resize', calculateTableHeight)
 })
 </script>
 

@@ -58,4 +58,14 @@ public class User extends BaseEntity {
      * 备注
      */
     private String remark;
+
+    /**
+     * 微信openid
+     */
+    private String openid;
+
+    /**
+     * 微信unionid
+     */
+    private String unionid;
 }

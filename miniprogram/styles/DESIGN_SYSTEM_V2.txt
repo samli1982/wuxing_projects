@@ -1,0 +1,348 @@
+/**
+ * 时空本草学派 设计系统 V2
+ * 主题：深空宇宙 × 水墨哲思 × 科技禅意
+ * 
+ * 本文件定义了全系统的UI标准，所有新页面应严格遵循此规范
+ */
+
+/* ==========================================
+   第一部分：色彩体系 (Color Palette)
+   ========================================== */
+
+/*
+ * 1. 主色调 (Primary Colors)
+ * ────────────────────────────
+ */
+
+const COLORS = {
+  // 主色调
+  bgPrimary: '#1A1C29',      // 深空蓝 - 全局背景、卡片底色
+  accent: '#3A9E8F',         // 翠绿青 - 强调色：按钮、进度条、高亮边框、选中态
+  
+  // 文字色（Text & UI）
+  textPrimary: '#D1D5DB',    // 浅银灰 - 主正文、标题
+  textSecondary: '#9CA3AF',  // 中灰 - 次要信息、提示语
+  textDisabled: '#6B7280',   // 淡雾灰 - 分割线、禁用状态
+  textWhite: '#FFFFFF',      // 纯白 - 高对比文字（仅用于重要标签）
+  
+  // 五行配色（纯净版｜仅用于图表/分类标识）
+  wood: '#3A9E8F',           // 木 - 翠绿（生生不息之源，象征肝主生发）
+  fire: '#E63946',           // 火 - 正红（正能量，不过曝）
+  earth: '#F4D06F',          // 土 - 明黄土色（避免褐/棕系脏感）
+  metal: '#FFFFFF',          // 金 - 白 = 金之象（搭配浅灰描边）
+  water: '#457B9D',          // 水 - 深湖蓝（沉静不刺眼）
+};
+
+/*
+ * 2. 背景与材质 (Background & Surfaces)
+ * ────────────────────────────────────
+ */
+
+/*
+ * 卡片/容器背景：
+ * 
+ * 推荐方案（磨砂玻璃）：
+ *   background: rgba(255, 255, 255, 0.06);
+ *   backdrop-filter: blur(10px);
+ *   border: 1px solid rgba(58, 158, 143, 0.15);
+ * 
+ * 替代方案（兼容性好）：
+ *   background: rgba(26, 28, 41, 0.6);
+ *   border: 1px solid rgba(58, 158, 143, 0.15);
+ *   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+ * 
+ * 所有卡片圆角统一为 12pt
+ */
+
+/* 全局背景：固定使用 #1A1C29，不随主题切换变化 */
+
+/* ==========================================
+   第二部分：字体系统 (Typography)
+   ========================================== */
+
+const TYPOGRAPHY = {
+  // 页面标题
+  title: {
+    fontFamily: '思源宋体 / HarmonyOS Sans SC',
+    fontSize: '18px',
+    color: '#D1D5DB',
+    lineHeight: '28px',
+    fontWeight: '500',
+  },
+  
+  // 正文内容
+  body: {
+    fontFamily: '思源宋体',
+    fontSize: '15px',
+    color: '#D1D5DB',
+    lineHeight: '24px',
+    fontWeight: '400',
+  },
+  
+  // 次要信息
+  secondary: {
+    fontFamily: '苹方 / HarmonyOS Sans SC',
+    fontSize: '13px',
+    color: '#9CA3AF',
+    lineHeight: '20px',
+    fontWeight: '400',
+  },
+  
+  // 标签/胶囊
+  label: {
+    fontFamily: '苹方',
+    fontSize: '12px',
+    color: '#D1D5DB',
+    lineHeight: '16px',
+    fontWeight: '500',
+  },
+  
+  // 按钮文本
+  button: {
+    fontFamily: '苹方',
+    fontSize: '16px',
+    color: '#FFFFFF',
+    lineHeight: '22px',
+    fontWeight: '600',
+  },
+};
+
+// ✅ 统一使用 8pt 基数网格系统（所有间距为 8 的倍数）
+// 间距：8px, 12px, 16px, 20px, 24px, 32px, 40px...
+
+/* ==========================================
+   第三部分：组件样式规范
+   ========================================== */
+
+/*
+ * 1. 按钮 (Button)
+ * ──────────────
+ */
+
+/* 主按钮 (Primary) */
+.btn-primary {
+  background: #3A9E8F;
+  color: #FFFFFF;
+  font-weight: 600;
+  border-radius: 12px;
+  height: 52px;
+  padding: 0 20px;
+  box-shadow: 0 2px 8px rgba(58, 158, 143, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+  box-shadow: 0 1px 4px rgba(58, 158, 143, 0.15);
+}
+
+/* 次按钮 (Secondary) */
+.btn-secondary {
+  background: transparent;
+  color: #D1D5DB;
+  border: 1px solid rgba(58, 158, 143, 0.3);
+  border-radius: 12px;
+  height: 52px;
+  padding: 0 20px;
+  transition: all 0.3s;
+}
+
+.btn-secondary:active {
+  background: rgba(58, 158, 143, 0.1);
+}
+
+/*
+ * 2. 卡片 (Card)
+ * ──────────────
+ */
+
+.card {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(58, 158, 143, 0.15);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/*
+ * 3. 输入框 (Input Field)
+ * ──────────────────────
+ */
+
+.input-field {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(58, 158, 143, 0.2);
+  border-radius: 12px;
+  height: 52px;
+  color: #D1D5DB;
+  padding: 0 12px;
+  font-size: 14px;
+}
+
+.input-field::placeholder {
+  color: #9CA3AF;
+}
+
+.input-field:active {
+  border-color: #3A9E8F;
+  box-shadow: 0 0 0 2px rgba(58, 158, 143, 0.1);
+}
+
+/*
+ * 4. 分割线 (Divider)
+ * ────────────────────
+ */
+
+.divider {
+  height: 1px;
+  background: linear-gradient(to right,
+    transparent,
+    rgba(58, 158, 143, 0.3),
+    transparent);
+  margin: 16px 0;
+}
+
+/* 替代实线，更具东方留白意境 */
+
+/* ==========================================
+   第四部分：图标与动效建议
+   ========================================== */
+
+/*
+ * 1. 图标风格
+ * ──────────
+ * 使用线性图标（Stroke: 2pt）
+ * 等宽描边，无填充
+ * 推荐来源：
+ *   - Iconfont.cn（搜索"太极""节气""五行"）
+ *   - Feather Icons 基础集 + 自定义中式变体
+ */
+
+/*
+ * 2. 动效原则
+ * ──────────
+ */
+
+/* 进入动画 */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 加载动效（建议使用 Lottie 太极旋转或呼吸光晕）*/
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* 过渡缓动曲线 */
+const EASING = 'cubic-bezier(0.4, 0, 0.2, 1)';
+
+/* ==========================================
+   第五部分：视觉层级示例
+   ========================================== */
+
+/*
+ * [标题]            ← #D1D5DB | 18px | Medium | 行距 28pt
+ * 
+ * [正文段落]        ← #D1D5DB | 15px | Regular | 行距 24pt
+ * 
+ * [辅助说明]        ← #9CA3AF | 13px | Regular | 行距 20pt
+ * 
+ * [标签]            ← #D1D5DB on transparent | 12px
+ */
+
+/* ==========================================
+   第六部分：最佳实践 (Best Practices)
+   ========================================== */
+
+/*
+ * ✅ DO:
+ * 
+ * 1. 颜色使用
+ *    - 只在强调关键交互时使用 #3A9E8F
+ *    - 五行色仅作点缀（图标、标签、图表），不作大面积背景
+ *    - 所有文字使用 #D1D5DB（主）或 #9CA3AF（次）
+ * 
+ * 2. 间距
+ *    - 所有内边距/边距都是 8 的倍数
+ *    - 卡片间距：12px
+ *    - 卡片内部内边距：16px
+ * 
+ * 3. 圆角
+ *    - 卡片、按钮、输入框：12px
+ *    - 标签、徽章：6px
+ * 
+ * 4. 动效
+ *    - 所有交互使用 cubic-bezier(0.4, 0, 0.2, 1) 缓动
+ *    - 防止过度动画，保持克制
+ * 
+ * 5. 对比度
+ *    - 确保所有文字都能清晰辨认
+ *    - 推荐对比度 ≥ 4.5:1
+ * 
+ * ❌ DON'T:
+ * 
+ * 1. 不要使用旧颜色：#BBBBBB, #E6E6E6, #A0A0A0
+ * 2. 不要使用脏色：褐色、暗橙、棕色
+ * 3. 不要大面积使用五行色
+ * 4. 不要使用过厚的阴影（深色背景下容易模糊）
+ * 5. 不要违反 8pt 网格系统
+ * 6. 不要使用非标准圆角
+ * 7. 不要过度装饰，保持极简克制
+ * 
+ */
+
+/* ==========================================
+   第七部分：交付资产
+   ========================================== */
+
+/*
+ * Figma Variables (推荐 v2024+):
+ * 
+ * // Colors
+ * $bg-primary: #1A1C29
+ * $text-primary: #D1D5DB
+ * $text-secondary: #9CA3AF
+ * $accent: #3A9E8F
+ * $color-wu-wood: #3A9E8F
+ * $color-wu-fire: #E63946
+ * $color-wu-earth: #F4D06F
+ * $color-wu-metal: #FFFFFF
+ * $color-wu-water: #457B9D
+ * 
+ * // Effects
+ * $glass-morph: rgba(255,255,255,0.06) + blur(10px)
+ * $shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.1)
+ * $shadow-md: 0 2px 8px rgba(0, 0, 0, 0.15)
+ * 
+ * // Radius
+ * $radius-sm: 6px
+ * $radius-md: 12px
+ * $radius-lg: 16px
+ * 
+ * // Spacing
+ * $space-8: 8px
+ * $space-12: 12px
+ * $space-16: 16px
+ * $space-20: 20px
+ * $space-24: 24px
+ */
+
+/* ==========================================
+   最终目标
+   ========================================== */
+
+/*
+ * 用户打开应用时，感受到的是——
+ * 
+ * "这不是一个普通的健康APP，而是一本会呼吸的《天人之书》。"
+ * 
+ * ✨ 深空意境 × 科技禅意 × 信息优先 ✨
+ */

@@ -1,25 +1,43 @@
 <view class="page">
   <view class="status-bar" style="height: {{statusBarHeight}}px;"></view>
 
-  <scroll-view class="header" scroll-x="true" show-scrollbar="false">
-    <view class="header-item">
-      <text class="icon">☀️</text>
-      <text class="header-text">{{headerInfo.sunriseTime}}</text>
+  <!-- 日出 | 农历 | 节气 | 北斗 自动循环滚动 -->
+  <view class="scrolling-banner">
+    <view class="scrolling-content" style="animation-duration: {{scrollDuration}}s;">
+      <view class="banner-item">
+        <text class="banner-icon">☀️</text>
+        <text class="banner-text">日出 {{headerInfo.sunriseTime}}</text>
+      </view>
+      <text class="banner-separator">|</text>
+      <view class="banner-item">
+        <text class="banner-text">{{headerInfo.lunarDate}}</text>
+      </view>
+      <text class="banner-separator">|</text>
+      <view class="banner-item" bindtap="onShowSolarTerm">
+        <text class="banner-text">{{headerInfo.solarTermName}} · 第{{headerInfo.solarTermDayIndex}}天</text>
+      </view>
+      <text class="banner-separator">|</text>
+      <view class="banner-item" bindtap="onShowSolarTerm">
+        <text class="banner-text">{{headerInfo.beidouDirection}}</text>
+      </view>
     </view>
-    <view class="divider"></view>
-    <view class="header-item">
-      <text class="lunar">{{headerInfo.lunarDate}}</text>
-    </view>
-    <view class="divider"></view>
-    <view class="header-item">
-      <view class="tag" bindtap="onShowSolarTerm">{{headerInfo.solarTermName}} • 第{{headerInfo.solarTermDayIndex}}天</view>
-    </view>
-    <view class="divider"></view>
-    <view class="header-item clickable" bindtap="onShowSolarTerm">
-      <text class="beidou">{{headerInfo.beidouDirection}}</text>
-    </view>
-  </scroll-view>
+  </view>
 
+  <!-- 公历、干支历、干支纪年历统一卡片 -->
+  <view class="calendar-card">
+    <view class="calendar-row">
+      <text class="calendar-value">{{solarDateTime}}</text>
+    </view>
+    <view class="calendar-row" bindtap="onShowSixtiesCycle">
+      <text class="calendar-value">{{sixtiesCycleInfo.sixtyCycleDate}}</text>
+    </view>
+    <view class="calendar-row" bindtap="onGoEmperorCalendar">
+      <text class="calendar-value emperor-text">{{emperorCalendarTitle}}</text>
+      <text class="calendar-arrow">→</text>
+    </view>
+  </view>
+
+  <!-- 五运六气卡片 -->
   <view class="card">
     <view class="card-year">
       <text>【{{wuyun.year}} {{wuyun.ganzhi}}】</text>
@@ -29,13 +47,20 @@
     <view class="card-core">
       <view class="taichi">⚪️</view>
       <view class="labels">
-        <view class="label"><text class="label-title">司天：</text><text class="label-value">{{wuyun.sitian}}</text></view>
-        <view class="label"><text class="label-title">在泉：</text><text class="label-value">{{wuyun.zaiquan}}</text></view>
+        <view class="label"><text class="label-title">【中运】</text><text class="label-value">{{wuyun.wuyun}}</text></view>
+        <view class="label"><text class="label-title">【司天】</text><text class="label-value">{{wuyun.sitian}}</text></view>
+        <view class="label"><text class="label-title">【在泉】</text><text class="label-value">{{wuyun.zaiquan}}</text></view>
         <view class="flow">五行流转（金→水→木→火→土）</view>
       </view>
     </view>
 
+    <view class="climate-section" wx:if="{{wuyun.climate}}">
+      <view class="section-label">气候特征：</view>
+      <text class="climate-text">{{wuyun.climate}}</text>
+    </view>
+
     <view class="tips">
+      <view class="tips-label">健康提示：</view>
       <block wx:for="{{displayTips}}" wx:key="index">
         <view class="tip-item">
           <view class="dot"></view>

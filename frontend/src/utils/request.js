@@ -47,8 +47,8 @@ service.interceptors.response.use(
     console.error('响应错误:', error)
     
     if (error.response) {
-      if (error.response.status === 401) {
-        ElMessage.error('登录已过期，请重新登录')
+      if (error.response.status === 401 || error.response.status === 403) {
+        ElMessage.error(error.response.status === 401 ? '登录已过期，请重新登录' : '无权限或登录失效，请重新登录')
         localStorage.removeItem('token')
         router.push('/login')
       } else {

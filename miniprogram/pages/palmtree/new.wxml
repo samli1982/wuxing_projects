@@ -1,4 +1,5 @@
 <view class="page">
+  <view class="status-bar" style="height: {{statusBarHeight}}px;"></view>
   <view class="nav">
     <view class="nav-left" bindtap="onBack">←</view>
     <view class="nav-title">创建个人命盘</view>
@@ -24,28 +25,27 @@
 
   <view class="section">
     <view class="section-title">📅 出生时间</view>
+    <radio-group class="calendar-radio-group" bindchange="onCalendarTypeChange">
+      <label class="calendar-radio"><radio value="gregorian" checked="{{form.calendar_type === 'gregorian'}}" /> 公历</label>
+      <label class="calendar-radio"><radio value="lunar" checked="{{form.calendar_type === 'lunar'}}" /> 农历</label>
+    </radio-group>
     <view class="form-row">
       <picker mode="selector" range="{{yearRange}}" value="{{yearIndex}}" bindchange="onYearChange">
         <view class="picker">{{form.birth_year || '年份'}}</view>
       </picker>
-      <picker mode="selector" range="{{monthRange}}" value="{{monthIndex}}" bindchange="onMonthChange">
-        <view class="picker">{{form.birth_month || '月份'}}</view>
+      <picker mode="selector" range="{{currentMonthRange}}" value="{{monthIndex}}" bindchange="onMonthChange">
+        <view class="picker">{{displayMonth || '月份'}}</view>
       </picker>
-      <picker mode="selector" range="{{dayRange}}" value="{{dayIndex}}" bindchange="onDayChange">
-        <view class="picker">{{form.birth_day || '日期'}}</view>
+      <picker mode="selector" range="{{currentDayRange}}" value="{{dayIndex}}" bindchange="onDayChange">
+        <view class="picker">{{displayDay || '日期'}}</view>
       </picker>
     </view>
     <view class="form-row">
-      <picker mode="selector" range="{{shichenRange}}" value="{{shichenIndex}}" bindchange="onShichenChange">
-        <view class="picker">{{shichenLabel || '选择时辰'}}</view>
+      <picker mode="time" value="{{birthTime}}" bindchange="onTimeChange">
+        <view class="picker">{{birthTime || '选择时间（小时:分钟）'}}</view>
       </picker>
-      <view class="calendar-toggle">
-        <text>公历</text>
-        <switch checked="{{form.calendar_type === 'gregorian'}}" bindchange="onCalendarSwitch" />
-        <text>农历</text>
-      </view>
     </view>
-    <view class="hint">若不确定时辰，可选择“不详”，系统将以子时补全</view>
+    <view class="hint">请输入准确的出生时间，用于精确计算真太阳时</view>
   </view>
 
   <view class="section">

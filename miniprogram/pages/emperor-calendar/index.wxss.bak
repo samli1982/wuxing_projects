@@ -1,0 +1,246 @@
+/* 页面背景 */
+.page {
+  min-height: 100vh;
+  background-image: linear-gradient(180deg, #1A1C29 0%, #2D2F40 100%);
+}
+.status-bar {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* 顾部导航 */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 12px 16px;
+  background: rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  gap: 12px;
+}
+.date-selector {
+  font-size: 20px;
+  cursor: pointer;
+}
+.header-title {
+  font-size: 18px;
+  color: #D1D5DB;
+  font-weight: 600;
+}
+
+/* 日期导航 */
+.date-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.15);
+}
+.nav-arrow {
+  font-size: 24px;
+  color: #FF6B35;
+  padding: 8px 12px;
+  cursor: pointer;
+  user-select: none;
+}
+.nav-arrow.left {
+  margin-right: 16px;
+}
+.nav-arrow.right {
+  margin-left: 16px;
+}
+.date-info {
+  flex: 1;
+  text-align: center;
+}
+.solar-date {
+  font-size: 16px;
+  color: #D1D5DB;
+  font-weight: 500;
+  font-family: 'Monaco', 'Courier New', monospace;
+  margin-bottom: 8px;
+}
+.weekday {
+  font-size: 12px;
+  color: #9CA3AF;
+}
+.lunar-date {
+  font-size: 13px;
+  color: #A5B4FC;
+  margin-bottom: 8px;
+}
+.ganzhi-display {
+  font-size: 13px;
+  color: #FF6B35;
+  font-weight: 600;
+  margin: 8px 0;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.ganzhi-year,
+.ganzhi-month,
+.ganzhi-day {
+  color: #FF6B35;
+}
+.ganzhi-sound {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+.sound-item {
+  font-size: 11px;
+  color: #FF6B35;
+  background: rgba(255, 107, 53, 0.1);
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 107, 53, 0.3);
+}
+
+/* 宜忌容器 */
+.yi-ji-container {
+  display: flex;
+  gap: 12px;
+  padding: 0 16px;
+  margin: 16px 0;
+}
+.yi-ji-card {
+  flex: 1;
+  padding: 12px;
+  border-radius: 8px;
+  min-height: 80px;
+  display: flex;
+  flex-direction: column;
+}
+.yi-card {
+  background: rgba(144, 238, 144, 0.08);
+  border: 1px solid rgba(144, 238, 144, 0.2);
+}
+.ji-card {
+  background: rgba(255, 107, 107, 0.08);
+  border: 1px solid rgba(255, 107, 107, 0.2);
+}
+.yi-ji-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.yi-card .yi-ji-title {
+  color: #90EE90;
+}
+.ji-card .yi-ji-title {
+  color: #FF6B6B;
+}
+.yi-ji-content {
+  font-size: 12px;
+  color: #D1D5DB;
+  line-height: 1.6;
+  word-break: break-all;
+}
+
+/* 详细信息 */
+.detail-container {
+  padding: 12px;
+  margin: 12px 16px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 107, 53, 0.2);
+}
+.detail-section {
+  margin-bottom: 16px;
+}
+.detail-section:last-child {
+  margin-bottom: 0;
+}
+.section-title {
+  font-size: 13px;
+  color: #FF6B35;
+  font-weight: 600;
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(255, 107, 53, 0.2);
+}
+.detail-item {
+  display: flex;
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.detail-item:last-child {
+  margin-bottom: 0;
+  border-bottom: none;
+}
+.detail-label {
+  font-size: 11px;
+  color: #9CA3AF;
+  min-width: 70px;
+  font-weight: 500;
+}
+.detail-value {
+  font-size: 11px;
+  color: #D1D5DB;
+  flex: 1;
+  word-break: break-word;
+}
+
+/* 时辰吉凶 */
+.shichen-container {
+  padding: 16px;
+  margin: 16px;
+  border-radius: 12px;
+  background-image: linear-gradient(180deg, #1A1C29 0%, #2D2F40 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.shichen-title {
+  font-size: 14px;
+  color: #D1D5DB;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.shichen-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.shichen-item {
+  padding: 8px;
+  border-radius: 6px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.shichen-time {
+  font-size: 11px;
+  color: #000;
+  margin-bottom: 2px;
+  font-weight: 500;
+}
+.shichen-name {
+  font-size: 12px;
+  color: #000;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+.shichen-status {
+  font-size: 11px;
+  color: #000;
+}
+
+/* 吉时样式 - 绿色 */
+.shichen-auspicious {
+  background-color: #90EE90;
+}
+
+/* 凶时样式 - 粉红色 */
+.shichen-inauspicious {
+  background-color: #FFB6C1;
+}
+
+.tabbar-placeholder {
+  height: 58px;
+}

@@ -1,0 +1,80 @@
+<view class="page">
+  <view class="status-bar"></view>
+  <view class="nav">
+    <view class="nav-left" bindtap="onBack">←</view>
+    <view class="nav-title">{{herb.name}}</view>
+    <view class="nav-right" bindtap="onToggleCollect">{{herb.is_collected ? '❤️' : '🤍'}}</view>
+  </view>
+
+  <view class="detail-container" wx:if="{{herb.id}}">
+    <!-- 基础信息卡片 -->
+    <view class="card">
+      <view class="card-title">基础信息</view>
+      <view class="info-row">
+        <text class="label">名称</text>
+        <text class="value">{{herb.name}}</text>
+      </view>
+      <view class="info-row">
+        <text class="label">编号</text>
+        <text class="value">{{herb.number}}</text>
+      </view>
+      <view class="info-row">
+        <text class="label">分类</text>
+        <view class="value">
+          <text class="category-tag">{{herb.category}}</text>
+          <text class="icon">{{herb.categoryIcon}}</text>
+        </view>
+      </view>
+      <view class="info-row">
+        <text class="label">别名</text>
+        <text class="value">{{herb.alias}}</text>
+      </view>
+    </view>
+
+    <!-- 性味特性 -->
+    <view class="card">
+      <view class="card-title">性味特性</view>
+      <view class="info-row">
+        <text class="label">性质</text>
+        <view class="value">
+          <view class="prop-tag nature" style="background-color: {{natureColor}}">{{herb.properties}}</view>
+        </view>
+      </view>
+      <view class="info-row">
+        <text class="label">五味</text>
+        <view class="value taste-tags">
+          <block wx:for="{{tasteTags}}" wx:key="*this">
+            <view class="prop-tag taste">{{item}}</view>
+          </block>
+        </view>
+      </view>
+    </view>
+
+    <!-- 功效作用 -->
+    <view class="card">
+      <view class="card-title">功效作用</view>
+      <view class="effects-list">
+        <block wx:for="{{effectsList}}" wx:key="*this">
+          <view class="effect-item">
+            <text class="effect-bullet">•</text>
+            <text class="effect-text">{{item}}</text>
+          </view>
+        </block>
+      </view>
+    </view>
+
+    <!-- 详细描述 -->
+    <view class="card" wx:if="{{herb.description}}">
+      <view class="card-title">详细描述</view>
+      <text class="description">{{herb.description}}</text>
+    </view>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="empty" wx:else>
+    <text class="empty-icon">⏳</text>
+    <view class="empty-text">
+      <text class="title">加载中...</text>
+    </view>
+  </view>
+</view>

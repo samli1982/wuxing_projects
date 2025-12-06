@@ -34,4 +34,21 @@ public interface UserService extends IService<User> {
      * @return JWT Token
      */
     String login(String username, String password);
+    
+    /**
+     * 根据微信openid查询用户
+     * 
+     * @param openid 微信openid
+     * @return 用户信息
+     */
+    User findByOpenid(String openid);
+    
+    /**
+     * 生成JWT Token
+     * 
+     * @param userId 用户ID
+     * @param username 用户名
+     * @return JWT Token
+     */
+    String generateToken(Long userId, String username);
 }

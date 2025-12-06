@@ -124,11 +124,33 @@ Page({
   },
 
   onLoad() {
+    // 检查登录状态，未登录则跳转到登录页
+    const { requireLogin } = require('../../utils/auth.js');
+    if (!requireLogin()) {
+      // 如果未登录或用户取消登录，停止页面加载
+      return;
+    }
+    
     console.log('✅ 学堂首页已加载');
     this.loadContent();
   },
+  
+  onShow() {
+    // 每次页面显示时都检查登录状态
+    const { requireLogin } = require('../../utils/auth.js');
+    if (!requireLogin()) {
+      // 如果未登录或用户取消登录，停止页面加载
+      return;
+    }
+  },
 
   loadContent() {
+    // 检查登录状态
+    const { requireLogin } = require('../../utils/auth.js');
+    if (!requireLogin()) {
+      return;
+    }
+    
     // 根据activeCategory筛选课程列表
     this.filterCourses();
   },
@@ -140,12 +162,24 @@ Page({
   },
 
   switchCategory(e) {
+    // 检查登录状态
+    const { requireLogin } = require('../../utils/auth.js');
+    if (!requireLogin()) {
+      return;
+    }
+    
     const category = e.currentTarget.dataset.category;
     this.setData({ activeCategory: category });
     this.filterCourses();
   },
 
   switchCommunityTab(e) {
+    // 检查登录状态
+    const { requireLogin } = require('../../utils/auth.js');
+    if (!requireLogin()) {
+      return;
+    }
+    
     const tab = e.currentTarget.dataset.tab;
     this.setData({ activeTab: tab });
   },
@@ -155,15 +189,33 @@ Page({
   },
 
   onSearch() {
+    // 检查登录状态
+    const { requireLogin } = require('../../utils/auth.js');
+    if (!requireLogin()) {
+      return;
+    }
+    
     wx.showToast({ title: '搜索功能待实现', icon: 'none' });
   },
 
   onCourseDetail(e) {
+    // 检查登录状态
+    const { requireLogin } = require('../../utils/auth.js');
+    if (!requireLogin()) {
+      return;
+    }
+    
     const courseId = e.currentTarget.dataset.id;
     wx.navigateTo({ url: `/pages/learn/course?id=${courseId}` });
   },
 
   toggleCollect(e) {
+    // 检查登录状态
+    const { requireLogin } = require('../../utils/auth.js');
+    if (!requireLogin()) {
+      return;
+    }
+    
     const courseId = e.currentTarget.dataset.id;
     const coursesList = this.data.coursesList.map(c => {
       if (c.course_id === courseId) {
@@ -176,11 +228,23 @@ Page({
   },
 
   onClassicDetail(e) {
+    // 检查登录状态
+    const { requireLogin } = require('../../utils/auth.js');
+    if (!requireLogin()) {
+      return;
+    }
+    
     const classicId = e.currentTarget.dataset.id;
     wx.navigateTo({ url: `/pages/learn/classic?id=${classicId}` });
   },
 
   onAnnotation(e) {
+    // 检查登录状态
+    const { requireLogin } = require('../../utils/auth.js');
+    if (!requireLogin()) {
+      return;
+    }
+    
     const classicId = e.currentTarget.dataset.id;
     wx.showModal({
       title: '古籍注解',
@@ -190,26 +254,56 @@ Page({
   },
 
   onRelatedCourse(e) {
+    // 检查登录状态
+    const { requireLogin } = require('../../utils/auth.js');
+    if (!requireLogin()) {
+      return;
+    }
+    
     const courseId = e.currentTarget.dataset.courseId;
     wx.navigateTo({ url: `/pages/learn/course?id=${courseId}` });
   },
 
   onVideoPlay(e) {
+    // 检查登录状态
+    const { requireLogin } = require('../../utils/auth.js');
+    if (!requireLogin()) {
+      return;
+    }
+    
     const videoId = e.currentTarget.dataset.id;
     wx.navigateTo({ url: `/pages/learn/video?id=${videoId}` });
   },
 
   toggleQaLike(e) {
+    // 检查登录状态
+    const { requireLogin } = require('../../utils/auth.js');
+    if (!requireLogin()) {
+      return;
+    }
+    
     const qaId = e.currentTarget.dataset.id;
     wx.showToast({ title: '点赞成功', icon: 'none' });
   },
 
   toggleQaCollect(e) {
+    // 检查登录状态
+    const { requireLogin } = require('../../utils/auth.js');
+    if (!requireLogin()) {
+      return;
+    }
+    
     const qaId = e.currentTarget.dataset.id;
     wx.showToast({ title: '已收藏', icon: 'none' });
   },
 
   onNoteDetail(e) {
+    // 检查登录状态
+    const { requireLogin } = require('../../utils/auth.js');
+    if (!requireLogin()) {
+      return;
+    }
+    
     const noteId = e.currentTarget.dataset.id;
     wx.navigateTo({ url: `/pages/learn/note?id=${noteId}` });
   },

@@ -20,7 +20,7 @@
     
     <properties>
         <java.version>17</java.version>
-        <mybatis-plus.version>3.5.9</mybatis-plus.version>
+        <mybatis-plus.version>3.5.3.1</mybatis-plus.version>
         <jwt.version>0.12.3</jwt.version>
         <knife4j.version>4.4.0</knife4j.version>
         <hutool.version>5.8.24</hutool.version>
@@ -109,6 +109,13 @@
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
             <version>${hutool.version}</version>
+        </dependency>
+        
+        <!-- Tyme - 中国农历/节气/干支等计算库 -->
+        <dependency>
+            <groupId>cn.6tail</groupId>
+            <artifactId>tyme4j</artifactId>
+            <version>1.4.0</version>
         </dependency>
         
         <!-- 阿里云OSS -->

@@ -1,0 +1,92 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #f8f8f8;
+}
+
+.header {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 40rpx;
+}
+
+.logo-placeholder {
+  width: 160rpx;
+  height: 160rpx;
+  margin-bottom: 40rpx;
+  background-color: #07c160;
+  border-radius: 50%;
+}
+
+.title {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+}
+
+.subtitle {
+  font-size: 32rpx;
+  color: #666;
+}
+
+.login-section {
+  padding: 0 80rpx;
+  margin-bottom: 80rpx;
+}
+
+.phone-login-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 96rpx;
+  border-radius: 48rpx;
+  margin-bottom: 30rpx;
+  font-size: 32rpx;
+  border: none;
+  background-color: #07c160;
+  color: white;
+}
+
+.btn-text {
+  font-size: 32rpx;
+}
+
+.agreement {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40rpx;
+}
+
+.agreement-text {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.link {
+  font-size: 24rpx;
+  color: #07c160;
+  margin: 0 10rpx;
+}
+
+.back-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40rpx;
+}
+
+.back-text {
+  font-size: 28rpx;
+  color: #666;
+}
+
+.button-hover {
+  opacity: 0.8;
+}

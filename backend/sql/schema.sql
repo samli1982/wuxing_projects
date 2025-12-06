@@ -15,6 +15,8 @@ CREATE TABLE IF NOT EXISTS sys_user (
     gender TINYINT DEFAULT 0 COMMENT '性别 0未知 1男 2女',
     status TINYINT DEFAULT 1 COMMENT '状态 0禁用 1正常',
     remark VARCHAR(500) COMMENT '备注',
+    openid VARCHAR(100) COMMENT '微信openid',
+    unionid VARCHAR(100) COMMENT '微信unionid',
     create_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     create_by BIGINT COMMENT '创建人',
@@ -24,7 +26,9 @@ CREATE TABLE IF NOT EXISTS sys_user (
     INDEX idx_email (email),
     INDEX idx_phone (phone),
     INDEX idx_status (status),
-    INDEX idx_deleted (deleted)
+    INDEX idx_deleted (deleted),
+    INDEX idx_openid (openid),
+    INDEX idx_unionid (unionid)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='用户表';
 
 -- 角色表
@@ -162,3 +166,132 @@ CREATE TABLE IF NOT EXISTS sys_file (
     INDEX idx_create_time (create_time),
     INDEX idx_deleted (deleted)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='文件信息表';
+
+-- 药精信息表
+CREATE TABLE IF NOT EXISTS herb_info (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT COMMENT '主键ID',
+    number VARCHAR(20) NOT NULL COMMENT '药精编号 例如: 1-①',
+    name VARCHAR(50) NOT NULL COMMENT '药精名称',
+    alias VARCHAR(200) COMMENT '别名，多个别名用逗号分隔',
+    element VARCHAR(10) NOT NULL COMMENT '五行分类（木/火/土/金/水）',
+    category VARCHAR(50) NOT NULL COMMENT '子分类 例如: 木中木、木中火等',
+    category_icon VARCHAR(10) COMMENT '分类图标emoji',
+    properties VARCHAR(100) COMMENT '性味（寒/温/热/凉/平），多个用逗号分隔',
+    taste VARCHAR(100) COMMENT '五味（酸/苦/甘/辛/咸），多个用逗号分隔',
+    nature_class VARCHAR(20) COMMENT '性质分类（hot/warm/neutral/cool/cold）',
+    effects VARCHAR(500) COMMENT '功效，多个用逗号分隔',
+    description TEXT COMMENT '详细描述',
+    sort INT DEFAULT 0 COMMENT '排序',
+    status TINYINT DEFAULT 1 COMMENT '状态 0-禁用 1-启用',
+    remark VARCHAR(500) COMMENT '备注',
+    create_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    create_by BIGINT COMMENT '创建人',
+    update_by BIGINT COMMENT '更新人',
+    deleted TINYINT DEFAULT 0 COMMENT '逻辑删除 0未删除 1已删除',
+    UNIQUE KEY uk_number (number),
+    INDEX idx_element (element),
+    INDEX idx_category (category),
+    INDEX idx_name (name),
+    INDEX idx_status (status),
+    INDEX idx_deleted (deleted)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='药精信息表';
+
+-- 会员用户表
+CREATE TABLE IF NOT EXISTS member_user (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT COMMENT '主键ID',
+    openid VARCHAR(100) COMMENT '微信openid',
+    unionid VARCHAR(100) COMMENT '微信unionid',
+    nickname VARCHAR(50) COMMENT '昵称',
+    real_name VARCHAR(50) COMMENT '真实姓名',
+    email VARCHAR(100) COMMENT '邮箱',
+    phone VARCHAR(20) COMMENT '手机号',
+    avatar VARCHAR(255) COMMENT '头像',
+    gender TINYINT DEFAULT 0 COMMENT '性别 0未知 1男 2女',
+    birthday VARCHAR(20) COMMENT '生日',
+    province VARCHAR(50) COMMENT '省份',
+    city VARCHAR(50) COMMENT '城市',
+    country VARCHAR(50) COMMENT '国家',
+    language VARCHAR(20) COMMENT '语言',
+    member_level TINYINT DEFAULT 1 COMMENT '会员等级 1普通会员 2VIP 3SVIP',
+    member_expire_time DATETIME COMMENT '会员过期时间',
+    points INT DEFAULT 0 COMMENT '积分',
+    status TINYINT DEFAULT 1 COMMENT '状态 0禁用 1正常',
+    remark VARCHAR(500) COMMENT '备注',
+    last_login_time DATETIME COMMENT '最后登录时间',
+    last_login_ip VARCHAR(50) COMMENT '最后登录IP',
+    create_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    create_by BIGINT COMMENT '创建人',
+    update_by BIGINT COMMENT '更新人',
+    deleted TINYINT DEFAULT 0 COMMENT '逻辑删除 0未删除 1已删除',
+    INDEX idx_openid (openid),
+    INDEX idx_unionid (unionid),
+    INDEX idx_phone (phone),
+    INDEX idx_email (email),
+    INDEX idx_member_level (member_level),
+    INDEX idx_status (status),
+    INDEX idx_deleted (deleted)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='会员用户表';
+
+-- 命盘基本信息表
+CREATE TABLE IF NOT EXISTS palmtree (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT COMMENT '主键ID',
+    member_id BIGINT NOT NULL COMMENT '会员ID',
+    nickname VARCHAR(50) COMMENT '命盘是称',
+    real_name VARCHAR(50) COMMENT '真实姓名',
+    birth_year INT COMMENT '出生年份',
+    birth_month INT COMMENT '出生月份',
+    birth_day INT COMMENT '出生日期',
+    birth_hour_index INT COMMENT '出生时辰索引 0-12: 不详、子、丑....亥',
+    birth_hour_type VARCHAR(20) COMMENT '出生时辰类型 precise精确 unknown不详',
+    birth_city VARCHAR(100) COMMENT '出生地城市',
+    birth_lng DOUBLE COMMENT '出生地经度',
+    birth_lat DOUBLE COMMENT '出生地纬度',
+    calendar_type VARCHAR(20) COMMENT '歴法类型 gregorian公历 lunar农历',
+    gender VARCHAR(20) COMMENT '性别 male男 female女 other其他',
+    for_health_analysis TINYINT DEFAULT 0 COMMENT '是否用于健康分析 0否 1是',
+    status TINYINT DEFAULT 1 COMMENT '状态 0禁用 1正常',
+    remark VARCHAR(500) COMMENT '备注',
+    create_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    create_by BIGINT COMMENT '创建人',
+    update_by BIGINT COMMENT '更新人',
+    deleted TINYINT DEFAULT 0 COMMENT '逻辑删除 0未删除 1已删除',
+    INDEX idx_member_id (member_id),
+    INDEX idx_status (status),
+    INDEX idx_create_time (create_time),
+    INDEX idx_deleted (deleted)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='命盘基本信息表';
+
+-- 命盘详情信息表
+CREATE TABLE IF NOT EXISTS palmtree_detail (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT COMMENT '主键ID',
+    palmtree_id BIGINT NOT NULL COMMENT '命盘ID',
+    year_heavenly_stem VARCHAR(10) COMMENT '年柱天干',
+    year_earthly_branch VARCHAR(10) COMMENT '年柱地支',
+    month_heavenly_stem VARCHAR(10) COMMENT '月柱天干',
+    month_earthly_branch VARCHAR(10) COMMENT '月柱地支',
+    day_heavenly_stem VARCHAR(10) COMMENT '日柱天干',
+    day_earthly_branch VARCHAR(10) COMMENT '日柱地支',
+    hour_heavenly_stem VARCHAR(10) COMMENT '时柱天干',
+    hour_earthly_branch VARCHAR(10) COMMENT '时柱地支',
+    nayin VARCHAR(50) COMMENT '纳音',
+    kongwang VARCHAR(50) COMMENT '空亏',
+    taiyuan VARCHAR(50) COMMENT '胎元',
+    wuxing_data LONGTEXT COMMENT '五行数据 JSON格式',
+    constitution_type VARCHAR(100) COMMENT '体质类型',
+    constitution_analysis LONGTEXT COMMENT '体质分析 JSON格式',
+    wuyunliuqi_data LONGTEXT COMMENT '五运六气数据 JSON格式',
+    useful_gods LONGTEXT COMMENT '喜用神 JSON数组格式',
+    adjustment_suggestions LONGTEXT COMMENT '调理建议 JSON格式',
+    remark VARCHAR(500) COMMENT '备注',
+    create_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    create_by BIGINT COMMENT '创建人',
+    update_by BIGINT COMMENT '更新人',
+    deleted TINYINT DEFAULT 0 COMMENT '逻辑删除 0未删除 1已删除',
+    INDEX idx_palmtree_id (palmtree_id),
+    INDEX idx_create_time (create_time),
+    INDEX idx_deleted (deleted)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='命盘详情信息表';

@@ -9,6 +9,24 @@ export const menuConfig = [
     }
   },
   {
+    path: '/herb',
+    name: 'HerbManagement',
+    meta: { 
+      title: '药精管理', 
+      icon: 'Leaf',
+      permission: 'herb:manage'
+    }
+  },
+  {
+    path: '/palmtree',
+    name: 'PalmtreeManagement',
+    meta: { 
+      title: '命盘管理', 
+      icon: 'CircleCheckFilled',
+      permission: 'palmtree:manage'
+    }
+  },
+  {
     path: '/system',
     name: 'System',
     meta: { 
@@ -76,7 +94,34 @@ export const menuConfig = [
         meta: { 
           title: '菜单管理', 
           icon: 'Menu',
-          permission: 'system:permission'
+          permission: 'system:menu'
+        }
+      },
+      {
+        path: '/database',
+        name: 'DatabaseQuery',
+        meta: { 
+          title: '数据库查询', 
+          icon: 'DataLine',
+          permission: 'system:database'
+        }
+      },
+      {
+        path: '/cache',
+        name: 'CacheManagement',
+        meta: { 
+          title: '缓存管理', 
+          icon: 'Coin',
+          permission: 'system:cache'
+        }
+      },
+      {
+        path: '/member',
+        name: 'MemberManagement',
+        meta: { 
+          title: '会员管理', 
+          icon: 'UserFilled',
+          permission: 'system:member'
         }
       }
     ]

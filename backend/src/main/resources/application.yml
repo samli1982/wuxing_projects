@@ -15,13 +15,13 @@ spring:
   # 数据源配置
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/wuxing_db?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
-    username: root
-    password: Sam1982,.
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:wuxing_db}?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:}
     hikari:
-      jdbc-url: jdbc:mysql://localhost:3306/wuxing_db?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
-      username: root
-      password: Sam1982,.
+      jdbc-url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:wuxing_db}?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+      username: ${DB_USERNAME:root}
+      password: ${DB_PASSWORD:}
     
   # Redis配置
   data:
@@ -65,7 +65,7 @@ mybatis-plus:
 
 # JWT配置
 jwt:
-  secret: wuxing-secret-key-change-in-production-environment
+  secret: ${JWT_SECRET:wuxing-secret-key-change-in-production-environment}
   expiration: 86400000  # 24小时，单位毫秒
 
 # Knife4j配置
@@ -100,13 +100,18 @@ logging:
 # 阿里云OSS配置
 aliyun:
   oss:
-    access-key-id: ${ALIYUN_OSS_ACCESS_KEY_ID:}
-    access-key-secret: ${ALIYUN_OSS_ACCESS_KEY_SECRET:}
-    bucket-name: ${ALIYUN_OSS_BUCKET_NAME:wuxing-files}
+    access-key-id: ${ALIYUN_ACCESS_KEY_ID:}
+    access-key-secret: ${ALIYUN_ACCESS_KEY_SECRET:}
+    bucket-name: ${ALIYUN_BUCKET_NAME:wuxing-files}
     # 使用标准Bucket Endpoint（不使用接入点）
     endpoint: ${ALIYUN_OSS_ENDPOINT:oss-cn-shenzhen.aliyuncs.com}
-    domain: ${ALIYUN_OSS_DOMAIN:}
-    prefix: ${ALIYUN_OSS_PREFIX:wuxing/}
+    domain: ${ALIYUN_DOMAIN:}
+    prefix: ${ALIYUN_PREFIX:wuxing/}
 
+# 微信小程序配置
+wechat:
+  appid: ${WECHAT_APPID:your_appid_here}
+  secret: ${WECHAT_SECRET:your_secret_here}
+  dev-mode: true
 
 #acs:oss:cn-shenzhen:1888147729201829:accesspoint/wuxing/object/*

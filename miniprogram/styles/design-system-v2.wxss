@@ -1,0 +1,357 @@
+/* ========================================
+   时空本草学派 设计系统 V2 - 组件详细规范
+   ======================================== */
+
+/* 一、颜色变量定义 */
+:root {
+  /* 主色调 */
+  --bg-primary: #1A1C29;
+  --accent: #3A9E8F;
+  
+  /* 文字色板 */
+  --text-primary: #D1D5DB;
+  --text-secondary: #9CA3AF;
+  --text-tertiary: #6B7280;
+  --text-white: #FFFFFF;
+  
+  /* 五行色（点缀用）*/
+  --color-wood: #3A9E8F;
+  --color-fire: #E63946;
+  --color-earth: #F4D06F;
+  --color-metal: #FFFFFF;
+  --color-water: #457B9D;
+  
+  /* 玻璃态效果 */
+  --glass-bg: rgba(255, 255, 255, 0.06);
+  --glass-border: rgba(58, 158, 143, 0.15);
+  --glass-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 二、按钮组件 */
+
+/* 主按钮 */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 52px;
+  padding: 0 20px;
+  background: #3A9E8F;
+  color: #FFFFFF;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0 2px 8px rgba(58, 158, 143, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+  box-shadow: 0 1px 4px rgba(58, 158, 143, 0.15);
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* 次按钮 */
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 52px;
+  padding: 0 20px;
+  background: transparent;
+  color: #D1D5DB;
+  font-size: 16px;
+  font-weight: 600;
+  border: 1px solid rgba(58, 158, 143, 0.3);
+  border-radius: 12px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.btn-secondary:active {
+  background: rgba(58, 158, 143, 0.1);
+  transform: scale(0.98);
+}
+
+/* 文本按钮 */
+.btn-text {
+  color: #3A9E8F;
+  background: transparent;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.btn-text:active {
+  color: #2d7f71;
+}
+
+/* 三、卡片样式 */
+
+/* 标准卡片 */
+.card {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(58, 158, 143, 0.15);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.card-title {
+  font-size: 16px;
+  color: #D1D5DB;
+  font-weight: 600;
+}
+
+.card-content {
+  font-size: 14px;
+  color: #9CA3AF;
+  line-height: 1.6;
+}
+
+/* 四、输入框组件 */
+
+.input-wrapper {
+  position: relative;
+  height: 52px;
+}
+
+.input-field {
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(58, 158, 143, 0.2);
+  border-radius: 12px;
+  padding: 0 12px;
+  color: #D1D5DB;
+  font-size: 14px;
+  transition: all 0.3s;
+}
+
+.input-field::placeholder {
+  color: #9CA3AF;
+}
+
+.input-field:active,
+.input-field:focus {
+  border-color: #3A9E8F;
+  box-shadow: 0 0 0 2px rgba(58, 158, 143, 0.1);
+}
+
+/* 五、标签与徽章 */
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  background: rgba(58, 158, 143, 0.15);
+  color: #3A9E8F;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 6px;
+  border: 1px solid rgba(58, 158, 143, 0.3);
+}
+
+.tag.primary {
+  background: rgba(58, 158, 143, 0.2);
+  color: #3A9E8F;
+}
+
+.tag.success {
+  background: rgba(76, 175, 80, 0.15);
+  color: #4CAF50;
+  border-color: rgba(76, 175, 80, 0.3);
+}
+
+.tag.danger {
+  background: rgba(230, 57, 70, 0.15);
+  color: #E63946;
+  border-color: rgba(230, 57, 70, 0.3);
+}
+
+.tag.warning {
+  background: rgba(244, 208, 111, 0.15);
+  color: #F4D06F;
+  border-color: rgba(244, 208, 111, 0.3);
+}
+
+/* 徽章 */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  background: #E63946;
+  color: #FFFFFF;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 10px;
+}
+
+/* 六、进度条 */
+
+.progress-bar {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(to right, #3A9E8F, #2d7f71);
+  border-radius: 2px;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.progress-text {
+  font-size: 11px;
+  color: #3A9E8F;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+/* 七、分割线 */
+
+.divider {
+  height: 1px;
+  background: linear-gradient(to right,
+    transparent,
+    rgba(58, 158, 143, 0.3),
+    transparent);
+  margin: 16px 0;
+}
+
+.divider-light {
+  background: linear-gradient(to right,
+    transparent,
+    rgba(58, 158, 143, 0.15),
+    transparent);
+}
+
+/* 八、间距工具类 */
+
+.mt-8 { margin-top: 8px; }
+.mt-12 { margin-top: 12px; }
+.mt-16 { margin-top: 16px; }
+.mt-20 { margin-top: 20px; }
+.mt-24 { margin-top: 24px; }
+
+.mb-8 { margin-bottom: 8px; }
+.mb-12 { margin-bottom: 12px; }
+.mb-16 { margin-bottom: 16px; }
+.mb-20 { margin-bottom: 20px; }
+.mb-24 { margin-bottom: 24px; }
+
+.px-16 { padding-left: 16px; padding-right: 16px; }
+.py-12 { padding-top: 12px; padding-bottom: 12px; }
+.p-16 { padding: 16px; }
+
+/* 九、动效 */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.animate-fade-in { animation: fadeIn 0.3s ease-out; }
+.animate-slide-in-up { animation: slideInUp 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+.animate-slide-in-down { animation: slideInDown 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+.animate-spin { animation: spin 1s linear infinite; }
+.animate-pulse { animation: pulse 2s ease-in-out infinite; }
+
+/* 十、对齐与排版 */
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
+/* 十一、禁用状态 */
+
+.disabled,
+[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

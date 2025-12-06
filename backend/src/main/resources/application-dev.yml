@@ -15,3 +15,9 @@ spring:
 logging:
   level:
     com.wuxing: debug
+
+# 微信小程序配置（开发环境）
+wechat:
+  appid: wx02897296c2991981 
+  secret: 0de56b8a3757f0a0df2810a7f17ca26f
+  dev-mode: true

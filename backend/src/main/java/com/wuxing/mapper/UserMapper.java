@@ -19,4 +19,12 @@ public interface UserMapper extends BaseMapper<User> {
      * @return 用户信息
      */
     User findByUsername(String username);
+    
+    /**
+     * 根据微信openid查询用户
+     * 
+     * @param openid 微信openid
+     * @return 用户信息
+     */
+    User findByOpenid(String openid);
 }

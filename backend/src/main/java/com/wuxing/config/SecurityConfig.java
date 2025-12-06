@@ -18,7 +18,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.Arrays;
 
 /**
- * Spring Security配置
+ * Spring Security配置类
  * 
  * @author wuxing
  */
@@ -58,7 +58,11 @@ public class SecurityConfig {
                     "/",
                     "/api/user/login",
                     "/api/user/register",
+                    "/api/app/auth/login",
+                    "/api/app/auth/bind-phone",
                     "/api/health",
+                    "/api/home/**",
+                    "/api/wuyun/**",
                     "/doc.html",
                     "/swagger-ui.html",
                     "/swagger-ui/**",

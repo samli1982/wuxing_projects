@@ -74,6 +74,30 @@ const router = createRouter({
           name: 'CacheManagement',
           component: () => import('@/views/cache/index.vue'),
           meta: { title: '缓存管理', icon: 'Coin' }
+        },
+        {
+          path: 'herb',
+          name: 'HerbManagement',
+          component: () => import('@/views/herb/index.vue'),
+          meta: { title: '药精管理', icon: 'Leaf' }
+        },
+        {
+          path: 'member',
+          name: 'MemberManagement',
+          component: () => import('@/views/member/index.vue'),
+          meta: { title: '会员管理', icon: 'UserFilled' }
+        },
+        {
+          path: 'palmtree',
+          name: 'PalmtreeManagement',
+          component: () => import('@/views/palmtree/index.vue'),
+          meta: { title: '命盘管理', icon: 'CircleCheckFilled' }
+        },
+        {
+          path: 'palmtree/detail/:id',
+          name: 'PalmtreeDetail',
+          component: () => import('@/views/palmtree/detail.vue'),
+          meta: { title: '命盘详情' }
         }
       ]
     }

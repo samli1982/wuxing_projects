@@ -1,8 +1,173 @@
-/* 全局样式与主题色 */
-page {
-  background: #1A1C29;
-  color: #ffffff;
+/* ========================================
+   简洁明亮设计系统 V3
+   主题：清爽白色 × 温和绿色 × 科技简约
+   ======================================== */
+
+/* 色彩体系 */
+:root {
+  /* 主色调 */
+  --color-bg-primary: #F5F5F5;      /* 清爽白：全局背景 */
+  --color-bg-secondary: #FFFFFF;    /* 纯白：卡片背景 */
+  --color-accent: #07c160;           /* 微信绿：强调色 */
+  --color-accent-light: #E8F5E9;     /* 绿色浅色背景 */
+  
+  /* 文字色 */
+  --color-text-primary: #333333;     /* 深灰：主正文 */
+  --color-text-secondary: #999999;   /* 中灰：次要信息 */
+  --color-text-disabled: #CCCCCC;    /* 浅灰：禁用状态 */
+  --color-text-white: #FFFFFF;       /* 纯白：高对比 */
+  
+  /* 五行配色（点缀用）*/
+  --color-wu-wood: #07c160;          /* 木：微信绿 */
+  --color-wu-fire: #FF5E5E;          /* 火：鲜红 */
+  --color-wu-earth: #FFC100;         /* 土：金黄 */
+  --color-wu-metal: #F2F2F2;         /* 金：浅灰 */
+  --color-wu-water: #4A90E2;         /* 水：天蓝 */
 }
-.text-muted { color: #BBBBBB; }
-.link { color: #457B9D; text-decoration: none; }
-.link:active { text-decoration: underline; }
+
+/* 全局样式 */
+page {
+  background: #F5F5F5;
+  color: #333333;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* 全局状态栏配置 */
+wx-status-bar {
+  background-color: #F5F5F5 !important;
+  color: #333333 !important;
+}
+
+/* 文字层级 */
+.text-title {
+  font-size: 18px;
+  color: #333333;
+  font-weight: 500;
+  line-height: 28px;
+}
+
+.text-body {
+  font-size: 15px;
+  color: #333333;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.text-secondary {
+  font-size: 13px;
+  color: #999999;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.text-caption {
+  font-size: 12px;
+  color: #333333;
+  font-weight: 500;
+  line-height: 16px;
+}
+
+.text-disabled {
+  color: #CCCCCC;
+}
+
+/* 卡片基础样式 */
+.card {
+  background: #FFFFFF;
+  border: 1px solid #F0F0F0;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+/* 按钮基础 */
+.btn {
+  border-radius: 12px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 600;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn-primary {
+  background: #07c160;
+  color: #FFFFFF;
+  box-shadow: 0 2px 8px rgba(7, 193, 96, 0.2);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: #333333;
+  border: 1px solid #E0E0E0;
+}
+
+/* 输入框 */
+.input-field {
+  background: #F5F5F5;
+  border: 1px solid #E8E8E8;
+  border-radius: 12px;
+  color: #333333;
+  padding: 0 12px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+}
+
+.input-field::placeholder {
+  color: #999999;
+}
+
+/* 分割线 */
+.divider {
+  height: 1px;
+  background: linear-gradient(to right,
+    transparent,
+    #E8E8E8,
+    transparent);
+  margin: 16px 0;
+}
+
+/* 淡出过渡 */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 旧样式兼容 */
+.text-muted {
+  color: #999999;
+}
+
+.link {
+  color: #07c160;
+  text-decoration: none;
+}
+
+.link:active {
+  text-decoration: underline;
+}
+
+/* tabBar 底部菜单栏样式 */
+wx-tabbar {
+  background-color: #FFFFFF !important;
+  border-top: 1px solid #F0F0F0 !important;
+}
+
+wx-tabbar-item {
+  font-weight: 600 !important;
+}
+
+wx-tabbar-item text {
+  font-weight: 600 !important;
+}

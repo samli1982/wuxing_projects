@@ -1,4 +1,5 @@
 <view class="page">
+  <view class="status-bar"></view>
   <!-- 导航栏 -->
   <view class="nav">
     <view class="nav-left"></view>
@@ -32,7 +33,7 @@
   <view class="quick-access">
     <view class="quick-grid">
       <view class="quick-item" bindtap="onQuickAction" data-action="palmtrees">
-        <view class="quick-icon">📜</view>
+        <view class="quick-icon"></view>
         <view class="quick-text">我的命盘</view>
       </view>
       <view class="quick-item" bindtap="onQuickAction" data-action="favorites">

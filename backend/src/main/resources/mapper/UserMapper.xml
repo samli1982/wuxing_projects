@@ -14,6 +14,8 @@
         <result column="gender" property="gender"/>
         <result column="status" property="status"/>
         <result column="remark" property="remark"/>
+        <result column="openid" property="openid"/>
+        <result column="unionid" property="unionid"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
         <result column="create_by" property="createBy"/>
@@ -25,6 +27,13 @@
     <select id="findByUsername" resultMap="BaseResultMap">
         SELECT * FROM sys_user 
         WHERE username = #{username} 
+        AND deleted = 0
+    </select>
+    
+    <!-- 根据微信openid查询用户 -->
+    <select id="findByOpenid" resultMap="BaseResultMap">
+        SELECT * FROM sys_user 
+        WHERE openid = #{openid} 
         AND deleted = 0
     </select>
 
