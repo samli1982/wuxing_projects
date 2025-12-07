@@ -125,6 +125,13 @@
             <version>3.17.4</version>
         </dependency>
         
+        <!-- DotEnv - 读取 .env.local 文件 -->
+        <dependency>
+            <groupId>io.github.cdimascio</groupId>
+            <artifactId>dotenv-java</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+        
         <!-- Configuration Processor -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
