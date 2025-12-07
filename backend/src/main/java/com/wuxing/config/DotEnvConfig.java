@@ -11,13 +11,12 @@ import java.io.File;
 @Configuration
 public class DotEnvConfig {
     
-    public DotEnvConfig() {
-        // 查找项目根目录的 .env.local 文件
-        String projectRoot = new File(".").getAbsolutePath();
+    static {
+        // 使用 static 块确保在类加载时就获取環境变量
+        String projectRoot = System.getProperty("user.dir");
         String envFilePath = projectRoot + "/.env.local";
         File envFile = new File(envFilePath);
         
-        // 如果 .env.local 存在，则加载它
         if (envFile.exists()) {
             Dotenv dotenv = Dotenv.configure()
                     .directory(projectRoot)
@@ -29,6 +28,10 @@ public class DotEnvConfig {
             dotenv.entries().forEach(entry -> {
                 System.setProperty(entry.getKey(), entry.getValue());
             });
+            
+            System.out.println("[✓] 已成功加载 .env.local 配置文件");
+        } else {
+            System.out.println("[✗] .env.local 文件不存在，将使用默认配置");
         }
     }
 }
